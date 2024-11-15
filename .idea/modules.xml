@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/COMP-3504-Project-Meal-Fit.iml" filepath="$PROJECT_DIR$/.idea/COMP-3504-Project-Meal-Fit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/COMP-3504-Project-Meal-Fit.iml" filepath="$PROJECT_DIR$/COMP-3504-Project-Meal-Fit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/src.iml" filepath="$PROJECT_DIR$/src/src.iml" />
     </modules>
   </component>
 </project>
