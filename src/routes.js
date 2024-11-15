@@ -8,9 +8,9 @@ module.exports.register = (app, database) => {
 
     // API endpoint to fetch data from the meal_view
     app.get('/api/meals', (req, res) => {
-        const query = `SELECT * FROM project-meal-planner.meal_view`;
+        const query = `SELECT * FROM meal_view`;
 
-        db.query(query, (err, results) => {
+          database.query(query, (err, results) => {
             if (err) {
                 console.error('Error fetching data from meal_view:', err);
                 res.status(500).json({ error: 'Internal Server Error' });
@@ -19,3 +19,4 @@ module.exports.register = (app, database) => {
             res.json(results);
         });
     });
+}
