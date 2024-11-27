@@ -6,7 +6,8 @@ module.exports.register = (app, database) => {
         res.status(200).send("This is running!").end();
     });
 
-  // Route to search for a meal by name
+
+// Route to search for a meal by name
 app.get('/api/meals/search', async (req, res) => {
     const { mealname }  = req.query;
 
