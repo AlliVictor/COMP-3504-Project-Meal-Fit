@@ -133,7 +133,7 @@ app.get('/api/vitamins', (req, res) => {
 });
 
 // API endpoint to fetch data from the water table
-app.get('/api/water', (req, res) => {
+app.get('/api/drinks', (req, res) => {
     const query = `SELECT * FROM water`;
 
     database.query(query, (err, results) => {
