@@ -2,6 +2,7 @@
 
 const cors = require('cors');
 const express = require('express');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -23,7 +24,8 @@ const startServer = async _ => {
   searchroutes.register(app, db);
 
   const userroutes = require('./src/userroutes');
-  userroutes.register(app, db); 
+  userroutes.register(app, db);
+
 
   const PORT = process.env.PORT || 8080;
   const server = app.listen(PORT, () => {
