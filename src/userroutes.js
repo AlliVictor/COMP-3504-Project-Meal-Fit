@@ -4,6 +4,7 @@ module.exports.register = (app, database) => {
 app.get ('/api/usercreate', async (req, res) => {
 	res.status(200).send("This is running").end();
  });
+
 // Route to search for a user by name, ID, or both
 app.get('/api/users/search', async (req, res) => {
     const { userid, username } = req.query;
@@ -39,6 +40,7 @@ app.get('/api/users/search', async (req, res) => {
         res.status(500).send({ error: 'Failed to search for user' });
     }
 });
+
 app.post('/api/adduser', async (req, res) => {
     const { user_id, user_name, user_age, user_gender, user_dietrestrictions, allergies } = req.body;
     if (!user_id || !user_name || !user_age || !user_gender || !user_dietrestrictions || !allergies) {

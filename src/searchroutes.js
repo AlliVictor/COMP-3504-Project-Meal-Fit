@@ -6,32 +6,42 @@ module.exports.register = (app, database) => {
         res.status(200).send("This is running!").end();
     });
 
-  // Route to search for a meal by name
-app.get('/api/meals/search', async (req, res) => {
-    const { mealname }  = req.query;
+
+app.get('/api/search', async (req, res) => {
+    const { table, name } = req.query;
 
     try {
-        if (!mealname) {
-            return res.status(400).send({ error: 'Please provide a meal name to search' });
+        if (!table || !name) {
+            return res.status(400).send({ error: 'Please provide both table and name to search' });
         }
 
-        // Query to search for meals by name
-        const query = 'SELECT * FROM meal_details WHERE meal_name LIKE ?';
-        const params = [`%${mealname}%`];
+        // Whitelist of valid table names to prevent SQL injection
+        const validTables = ['carbs', 'diet_restrictions', 'fats', 'fibers', 'meals', 'minerals', 'proteins', 'users', 'vitamins', 'water'];
+        if (!validTables.includes(table)) {
+            return res.status(400).send({ error: 'Invalid table name' });
+        }
+
+        // Remove the trailing "s" to construct the column name
+        const columnName = table.slice(0, -1) + '_name';
+
+        // Construct the query dynamically with a case-insensitive search
+        const query = `SELECT * FROM ${table} WHERE LOWER(${columnName}) LIKE LOWER(?)`;
+        const params = [`%${name}%`];
 
         // Execute the query
         const [records] = await database.query(query, params);
 
         // Check if any records were found
         if (records.length === 0) {
-            return res.status(404).send({ error: 'Meal does not exist' });
+            return res.status(404).send({ error: `${table} does not contain a record with the specified name` });
         }
 
         // Send the found records as the response
         res.status(200).send(records);
     } catch (error) {
-        console.error('Error searching for meals:', error);
-        res.status(500).send({ error: 'Failed to search for meals' });
+        console.error('Error searching:', error);
+        res.status(500).send({ error: 'Failed to search for records' });
     }
 });
+
 }
