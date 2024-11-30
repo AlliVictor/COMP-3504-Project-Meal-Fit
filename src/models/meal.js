@@ -10,7 +10,7 @@ const filterMeals = async (db, dietrestrictions /*allergies*/) => {
   const query = `
     SELECT * FROM meals_view
     WHERE NOT FIND_IN_SET(?, restriction_name)
-//AND NOT FIND_IN_SET(?, allergies)
+/*AND NOT FIND_IN_SET(?, allergies)*/
   `;
   const meals = await db.query(query, [dietrestrictions /*allergies*/]);
   return meals;
@@ -20,7 +20,7 @@ const generateMealPlan = async (db, dietrestrictions /*allergies*/) => {
   const query = `
     SELECT * FROM meals_view
     WHERE NOT FIND_IN_SET(?, restriction_name)
-    //AND NOT FIND_IN_SET(?, allergies)
+/*AND NOT FIND_IN_SET(?, allergies)*/
     ORDER BY RAND()
     LIMIT 21; -- 3 meals a day for 7 days
   `;
