@@ -8,7 +8,7 @@ const getMeals = async (db) => {
 
 const filterMeals = async (db, dietrestrictions, allergies) => {
   const query = `
-    SELECT * FROM meals
+    SELECT * FROM meals_view
     WHERE NOT FIND_IN_SET(?, diet_restrictions)
     AND NOT FIND_IN_SET(?, allergies)
   `;
@@ -18,7 +18,7 @@ const filterMeals = async (db, dietrestrictions, allergies) => {
 
 const generateMealPlan = async (db, dietrestrictions, allergies) => {
   const query = `
-    SELECT * FROM meals
+    SELECT * FROM meals_view
     WHERE NOT FIND_IN_SET(?, diet_restrictions)
     AND NOT FIND_IN_SET(?, allergies)
     ORDER BY RAND()
