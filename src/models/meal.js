@@ -9,7 +9,7 @@ const getMeals = async (db) => {
 const filterMeals = async (db, dietrestrictions /*allergies*/) => {
   const query = `
     SELECT * FROM meals_view
-    WHERE NOT FIND_IN_SET(?, restriction_name)
+    WHERE restriction_name LIKE CONCAT('%', ?, '%')
 /*AND NOT FIND_IN_SET(?, allergies)*/
   `;
   const meals = await db.query(query, [dietrestrictions /*allergies*/]);
@@ -19,7 +19,7 @@ const filterMeals = async (db, dietrestrictions /*allergies*/) => {
 const generateMealPlan = async (db, dietrestrictions /*allergies*/) => {
   const query = `
     SELECT * FROM meals_view
-    WHERE NOT FIND_IN_SET(?, restriction_name)
+    WHERE restriction_name LIKE CONCAT('%', ?, '%')
 /*AND NOT FIND_IN_SET(?, allergies)*/
     ORDER BY RAND()
     LIMIT 21; -- 3 meals a day for 7 days
