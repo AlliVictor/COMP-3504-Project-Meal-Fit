@@ -1,31 +1,26 @@
-// Model for Meal
-
 const getMeals = async (db) => {
-  const query = `SELECT * FROM meals`;
+  const query = `SELECT * FROM meals_view`;
   const meals = await db.query(query);
   return meals;
 };
 
-const filterMeals = async (db, dietrestrictions /*allergies*/) => {
+const filterMeals = async (db, dietrestrictions) => {
   const query = `
     SELECT * FROM meals_view
-    WHERE restriction_name LIKE CONCAT('%', ?, '%')
-/*AND NOT FIND_IN_SET(?, allergies)*/
+    WHERE restriction_name NOT LIKE ?
   `;
-  const meals = await db.query(query, [dietrestrictions /*allergies*/]);
+  const meals = await db.query(query, ['%${dietrestrictions}%']);
   return meals;
 };
 
-const generateMealPlan = async (db, dietrestrictions /*allergies*/) => {
+const generateMealPlan = async (db, dietrestrictions) => {
   const query = `
     SELECT * FROM meals_view
-    WHERE restriction_name LIKE CONCAT('%', ?, '%')
-/*AND NOT FIND_IN_SET(?, allergies)*/
+    WHERE restriction_name NOT LIKE ?
     ORDER BY RAND()
-    LIMIT 21; -- 3 meals a day for 7 days
+    LIMIT 21; -- 3 meals per day for 7 days
   `;
-  const meals = await db.query(query, [dietrestrictions /*allergies*/]);
-
+  const meals = await db.query(query,['%${dietrestrictions}%']);
   // Split meals into 7 days, 3 meals each
   const mealPlan = [];
   for (let i = 0; i < 7; i++) {
