@@ -26,6 +26,8 @@ const startServer = async _ => {
   const userroutes = require('./src/userroutes');
   userroutes.register(app, db);
 
+  const mealroutes = require('./src/mealroutes');
+  mealroutes.register(app, db);
 
   const PORT = process.env.PORT || 8080;
   const server = app.listen(PORT, () => {
