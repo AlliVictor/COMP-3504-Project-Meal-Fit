@@ -1,4 +1,4 @@
-const { generateMealPlan } = require('../models/meal');
+const { generateMealPlan } = require('./models/meal');
 
 const registerMealRoutes = (app, db) => {
   app.post('/api/meals/plan', async (req, res) => {
