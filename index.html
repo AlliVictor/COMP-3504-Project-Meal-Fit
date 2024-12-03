@@ -3,15 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My PWA</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="images/x-icon" href="images/favicon.ico">
+    <title>Meal Plan App</title>
+    <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
-
-<h1>Welcome to My PWA</h1>
-
-<script src="/scripts/script.js"></script>
+<header>
+    <h1>Meal Plan Application</h1>
+    <nav>
+        <button id="homeBtn">Home</button>
+        <button id="mealPlanBtn">Meal Plan</button>
+        <button id="usersBtn">Register</button>
+        <button id="loginBtn">Login</button>
+        <button id="searchBtn">Search</button>
+    </nav>
+</header>
+<main id="mainContent">
+    <h2>Welcome to the Meal Plan App</h2>
+    <p>Navigate using the buttons above.</p>
+</main>
+<script src="/scripts/mealapp.js"></script>
 </body>
 </html>
