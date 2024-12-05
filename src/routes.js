@@ -8,7 +8,7 @@ module.exports.register = (app, database) => {
 
     // API endpoint to fetch data from the meal_view
     app.get('/api/meals', (req, res) => {
-        const query = `SELECT * FROM meal_details`;
+        const query = `SELECT * FROM meal_views`;
 
           database.query(query, (err, results) => {
             if (err) {
@@ -50,11 +50,11 @@ app.get('/api/carbs', (req, res) => {
 
 // API endpoint to fetch data from the diet_restrictions table
 app.get('/api/dietrestrictions', (req, res) => {
-    const query = `SELECT * FROM diet_restrictions`;
+    const query = `SELECT * FROM dietrestrictions`;
 
     database.query(query, (err, results) => {
         if (err) {
-            console.error('Error fetching data from diet_restrictions:', err);
+            console.error('Error fetching data from dietrestrictions:', err);
             res.status(500).json({ error: 'Internal Server Error' });
             return;
         }
@@ -132,13 +132,13 @@ app.get('/api/vitamins', (req, res) => {
     });
 });
 
-// API endpoint to fetch data from the water table
+// API endpoint to fetch data from the drink table
 app.get('/api/drinks', (req, res) => {
-    const query = `SELECT * FROM water`;
+    const query = `SELECT * FROM drinks`;
 
     database.query(query, (err, results) => {
         if (err) {
-            console.error('Error fetching data from water:', err);
+            console.error('Error fetching data from drinks:', err);
             res.status(500).json({ error: 'Internal Server Error' });
             return;
         }

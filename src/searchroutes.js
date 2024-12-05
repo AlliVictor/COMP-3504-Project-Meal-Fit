@@ -16,7 +16,7 @@ app.get('/api/search', async (req, res) => {
         }
 
         // Whitelist of valid table names to prevent SQL injection
-        const validTables = ['carbs', 'diet_restrictions', 'fats', 'fibers', 'meals', 'minerals', 'proteins', 'users', 'vitamins', 'water'];
+        const validTables = ['carbs', 'dietrestrictions', 'fats', 'fibers', 'meals', 'minerals', 'proteins', 'users', 'vitamins', 'drinks'];
         if (!validTables.includes(table)) {
             return res.status(400).send({ error: 'Invalid table name' });
         }
@@ -28,6 +28,9 @@ app.get('/api/search', async (req, res) => {
         const query = `SELECT * FROM ${table} WHERE LOWER(${columnName}) LIKE LOWER(?)`;
         const params = [`%${name}%`];
 
+           // Log the query for debugging
+                  console.log('Query:', query);
+                  console.log('Params:', params);
         // Execute the query
         const [records] = await database.query(query, params);
 
