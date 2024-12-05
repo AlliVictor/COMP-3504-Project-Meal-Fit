@@ -1,5 +1,4 @@
 "use strict";
-
 const { createUser, findUserByUsername } = require('./models/user');
 
 const register = (app, db) => {
@@ -34,7 +33,7 @@ app.post('/api/users/register', async (req, res) => {
 
     res.status(201).json({ message: 'User registered successfully', userId });
   } catch (error) {
-    res.status(500).json({ message: 'Registration failed', error: error.message });
+    res.status(500).json({ message: 'This Email has an account already attached to it', error: error.message });
   }
 });
 
