@@ -16,7 +16,7 @@ app.get('/api/search', async (req, res) => {
         }
 
         // Whitelist of valid table names to prevent SQL injection
-        const validTables = ['carbs', 'dietrestrictions', 'fats', 'fibers', 'meals', 'minerals', 'proteins', 'users', 'vitamins', 'drinks'];
+        const validTables = ['carbs', 'dietrestrictions', 'fats', 'fibers', 'meals', 'minerals', 'proteins', 'vitamins', 'drinks'];
         if (!validTables.includes(table)) {
             return res.status(400).send({ error: 'Invalid table name' });
         }

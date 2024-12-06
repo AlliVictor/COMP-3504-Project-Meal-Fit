@@ -205,17 +205,6 @@ function renderSearch() {
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-
     // Initialize the app by rendering the home page
     renderHome();
 });

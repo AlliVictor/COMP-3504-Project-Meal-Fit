@@ -8,7 +8,7 @@ module.exports.register = (app, database) => {
 
     // API endpoint to fetch data from the meal_view
     app.get('/api/meals', (req, res) => {
-        const query = `SELECT * FROM meal_views`;
+        const query = `SELECT * FROM meals`;
 
           database.query(query, (err, results) => {
             if (err) {
