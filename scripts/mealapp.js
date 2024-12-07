@@ -21,44 +21,139 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     }
 
-    // Meal Plan Page
-    function renderMealPlan() {
-        mainContent.innerHTML = `
-      <h2>Generate a Meal Plan</h2>
-      <input type="text" id="dietRestrictions" placeholder="Enter dietary restrictions">
-      <button id="generatePlanBtn">Generate Plan</button>
-      <ul id="mealPlanList"></ul>
-    `;
+   function renderMealPlan() {
+       mainContent.innerHTML = `
+         <h2>Generate a Meal Plan</h2>
+         <input type="text" id="dietRestrictions" placeholder="Enter dietary restrictions">
+         <button id="generatePlanBtn">Generate Plan</button>
+         <div id="mealPlanListContainer">
+           <ul id="mealPlanList"></ul>
+         </div>
+       `;
 
-        document.getElementById('generatePlanBtn').addEventListener('click', async () => {
-            const restrictions = document.getElementById('dietRestrictions').value;
-            try {
+       document.getElementById('generatePlanBtn').addEventListener('click', async () => {
+           const restrictions = document.getElementById('dietRestrictions').value;
+           try {
                const response = await fetch('http://35.208.93.54:8080/api/meals/plan', {
-                                   method: 'POST',
-                                   headers: { 'Content-Type': 'application/json' },
-                                   body: JSON.stringify({ dietRestrictions: restrictions }),
-                               });
-                const mealPlan = await response.json();
-                const mealPlanList = document.getElementById('mealPlanList');
-                mealPlanList.innerHTML = '';
-                mealPlan.forEach((day) => {
-                    const dayItem = document.createElement('li');
-                    dayItem.innerHTML = `<strong>${day.day}</strong>`;
-                    const mealList = document.createElement('ul');
-                    day.meals.forEach((meal) => {
-                        const mealItem = document.createElement('li');
-                        mealItem.textContent = meal.meal_name || 'Meal name missing';
-                        mealList.appendChild(mealItem);
-                    });
-                    dayItem.appendChild(mealList);
-                    mealPlanList.appendChild(dayItem);
-                });
+                   method: 'POST',
+                   headers: { 'Content-Type': 'application/json' },
+                   body: JSON.stringify({ dietRestrictions: restrictions }),
+               });
+               const mealPlan = await response.json();
+               const mealPlanList = document.getElementById('mealPlanList');
+               mealPlanList.innerHTML = '';
+               mealPlan.forEach((day) => {
+                   const dayItem = document.createElement('li');
+                   dayItem.innerHTML = `<strong>${day.day}</strong>`;
+                   const mealList = document.createElement('ul');
+                   day.meals.forEach((meal) => {
+                       const mealItem = document.createElement('li');
+                       mealItem.textContent = meal.meal_name || 'Meal name missing';
 
-            } catch (error) {
-                alert('Failed to generate meal plan');
-            }
-        });
-    }
+                       // Add click event to show detailed meal info
+                       mealItem.addEventListener('click', () => showMealDetails(meal));
+                       mealList.appendChild(mealItem);
+                   });
+                   dayItem.appendChild(mealList);
+                   mealPlanList.appendChild(dayItem);
+               });
+
+           } catch (error) {
+               alert('Failed to generate meal plan');
+           }
+       });
+   }
+
+   // Global variable to keep track of the current meal details container
+   let currentMealDetails = null;
+
+   // Function to show detailed information of a meal
+   async function showMealDetails(meal) {
+       // If there's already a meal details container open, close it
+       if (currentMealDetails) {
+           mainContent.removeChild(currentMealDetails);
+       }
+
+       // Create a new meal details container
+       const mealDetailsContainer = document.createElement('div');
+       mealDetailsContainer.classList.add('meal-details-container');
+
+       // Fetch and extract data for each nutrient group (carbs, proteins, etc.)
+       const nutrients = extractNutrients(meal);
+
+       // Convert the description to an array of lines for bullet points
+       const descriptionLines = (meal.description || 'No description available').split('\n');
+
+       const mealDetailsHTML = `
+           <h3>Meal Details</h3>
+           <p><strong>Meal Name:</strong> ${meal.meal_name}</p>
+           <img src="${meal.image_url || 'default_image.jpg'}" alt="Meal Image"/>
+
+           <div class="details-container">
+               <!-- Description Section (Left) -->
+               <div class="description">
+                   <h4>Description</h4>
+                   <ul>
+                       ${descriptionLines.map(line => `<li>${line}</li>`).join('')}
+                   </ul>
+                   <p><strong>Calories:</strong> ${meal.calories || 'N/A'}</p>
+               </div>
+
+               <!-- Nutritional Information Section (Right) -->
+               <div class="nutritional-info">
+                   <h4>Nutritional Information</h4>
+                   <ul>
+                       ${nutrients.map(nutrient => `<li><strong>${nutrient.type}:</strong> ${nutrient.value || 'N/A'}</li>`).join('')}
+                   </ul>
+               </div>
+           </div>
+
+           <h4>Dietary Restrictions</h4>
+           <p><strong>Restriction(s):</strong> ${meal.restriction_name || 'No dietary restrictions'}</p>
+
+           <button id="closeMealDetails">Close</button>
+       `;
+
+       mealDetailsContainer.innerHTML = mealDetailsHTML;
+
+       // Append the new meal details container to the main content
+       mainContent.appendChild(mealDetailsContainer);
+
+       // Set the current meal details for easy removal later
+       currentMealDetails = mealDetailsContainer;
+
+       // Show the meal details container
+       mealDetailsContainer.style.display = 'block';
+
+       // Close meal details when the close button is clicked
+       document.getElementById('closeMealDetails').addEventListener('click', () => {
+           mainContent.removeChild(mealDetailsContainer);
+           currentMealDetails = null; // Reset the current meal details tracker
+       });
+   }
+
+
+   // Function to extract nutrients from the meal data
+   function extractNutrients(meal) {
+       // Define nutrient fields and their display names
+       const nutrientFields = [
+           { type: 'Carbs', field: 'carb_name' },
+           { type: 'Proteins', field: 'protein_name' },
+           { type: 'Fats', field: 'fat_name' },
+           { type: 'Fibers', field: 'fiber_name' },
+           { type: 'Vitamins', field: 'vitamin_name' },
+           { type: 'Minerals', field: 'mineral_name' },
+           { type: 'Drinks', field: 'drink_name' }
+       ];
+
+       // Extract nutrients from the meal object and return them
+       return nutrientFields.map(nutrient => ({
+           type: nutrient.type,
+           value: meal[nutrient.field] || 'N/A' // Use 'N/A' if the nutrient name is missing
+       }));
+   }
+
+
 
    // Users Page
        function renderUsers() {
@@ -205,17 +300,6 @@ function renderSearch() {
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-
     // Initialize the app by rendering the home page
     renderHome();
 });

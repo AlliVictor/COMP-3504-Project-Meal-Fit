@@ -1,12 +1,12 @@
 const getMeals = async (db) => {
-  const query = `SELECT * FROM meals_view`;
+  const query = `SELECT * FROM meals`;
   const meals = await db.query(query);
   return meals;
 };
 
 const filterMeals = async (db, dietrestrictions) => {
   const query = `
-    SELECT * FROM meals_view
+    SELECT * FROM meals
     WHERE restriction_name NOT LIKE ?
   `;
   const meals = await db.query(query, ['%${dietrestrictions}%']);
@@ -15,7 +15,7 @@ const filterMeals = async (db, dietrestrictions) => {
 
 const generateMealPlan = async (db, dietrestrictions) => {
   const query = `
-    SELECT * FROM meals_view
+    SELECT * FROM meals
     WHERE restriction_name NOT LIKE ?
     ORDER BY RAND()
     LIMIT 21; -- 3 meals per day for 7 days
