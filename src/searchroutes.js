@@ -7,43 +7,75 @@ module.exports.register = (app, database) => {
     });
 
 
-app.get('/api/search', async (req, res) => {
-    const { table, name } = req.query;
+// Define the dynamic route to fetch records for a given table
+app.get('/api/search/:table/:idOrName?', async (req, res) => {
+    const { table, idOrName } = req.params;
 
     try {
-        if (!table || !name) {
-            return res.status(400).send({ error: 'Please provide both table and name to search' });
-        }
+        // Map table names to their respective column names
+        const tableMappings = {
+            carbs: { id: 'carb_id', name: 'carb_name' },
+            dietrestrictions: { id: 'dietrestriction_id', name: 'dietrestriction_name' },
+            fats: { id: 'fat_id', name: 'fat_name' },
+            fibers: { id: 'fiber_id', name: 'fiber_name' },
+            meals: { id: 'meal_id', name: 'meal_name' },
+            minerals: { id: 'mineral_id', name: 'mineral_name' },
+            proteins: { id: 'protein_id', name: 'protein_name' },
+            vitamins: { id: 'vitamin_id', name: 'vitamin_name' },
+            drinks: { id: 'drink_id', name: 'drink_name' },
+        };
 
-        // Whitelist of valid table names to prevent SQL injection
-        const validTables = ['carbs', 'dietrestrictions', 'fats', 'fibers', 'meals', 'minerals', 'proteins', 'vitamins', 'drinks'];
-        if (!validTables.includes(table)) {
+        // Validate table name
+        if (!tableMappings[table]) {
             return res.status(400).send({ error: 'Invalid table name' });
         }
 
-        // Remove the trailing "s" to construct the column name
-        const columnName = table.slice(0, -1) + '_name';
+        const { id: idColumn, name: nameColumn } = tableMappings[table];
+        const dbName = 'project-meal-planner'; // Set your database name
+        let query;
+        let params = [];
 
-        // Construct the query dynamically with a case-insensitive search
-        const query = `SELECT * FROM ${table} WHERE LOWER(${columnName}) LIKE LOWER(?)`;
-        const params = [`%${name}%`];
+        if (idOrName) {
+            if (!isNaN(idOrName)) {
+                // Numeric value: Assume it's `id`
+                query = `SELECT * FROM \`${dbName}\`.\`${table}\` WHERE \`${idColumn}\` = ?`;
+                params = [idOrName];
+            } else {
+                // Non-numeric value: Assume it's `name`
+                query = `SELECT * FROM \`${dbName}\`.\`${table}\` WHERE \`${nameColumn}\` LIKE ?`;
+                params = [`%${idOrName}%`];
+            }
+        } else {
+            // Fetch all records if no `idOrName` is provided
+            query = `SELECT * FROM \`${dbName}\`.\`${table}\``;
+        }
 
-           // Log the query for debugging
-                  console.log('Query:', query);
-                  console.log('Params:', params);
+        console.log('Executing query:', query, 'with params:', params);
+
         // Execute the query
         const [records] = await database.query(query, params);
 
-        // Check if any records were found
-        if (records.length === 0) {
-            return res.status(404).send({ error: `${table} does not contain a record with the specified name` });
+        // Check if records were found
+        if (!records || records.length === 0) {
+            return res.status(404).send({ error: 'No records found' });
         }
 
-        // Send the found records as the response
+        // Send the records as a response
         res.status(200).send(records);
     } catch (error) {
-        console.error('Error searching:', error);
-        res.status(500).send({ error: 'Failed to search for records' });
+        console.error('Error in search:', error);
+        res.status(500).send({ error: 'Failed to search records' });
+    }
+});
+
+app.get('/api/test/proteins', async (req, res) => {
+    try {
+        const [records] = await database.query('SELECT * FROM `project-meal-planner`.`proteins`');
+        console.log('Proteins table records:', records);
+        res.status(200).send(records);
+    } catch (error) {
+        console.error('Error fetching proteins:', error);
+        res.status(500).send({ error: 'Failed to fetch proteins' });
     }
 });
 

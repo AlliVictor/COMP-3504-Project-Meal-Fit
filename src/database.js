@@ -1,4 +1,4 @@
-const mysql = require('promise-mysql');
+const mysql = require('mysql2/promise');
 
 require('dotenv').config()
 
@@ -13,7 +13,7 @@ const connectToDatabase = async () => {
         port: process.env.DB_PORT || 3306, // e.g. '3306'
 
         //Specify additional properties here.
-        connectionLimit: 5,
+        connectionLimit: 100,
         connectTimeout: 10000, // 10 seconds
         acquireTimeout: 10000, // 10 seconds
         waitForConnections: true, // Default: true
