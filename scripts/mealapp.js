@@ -233,73 +233,97 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Search Page
-function renderSearch() {
-    const tables = [
-        'carbs',
-        'dietrestrictions',
-        'fats',
-        'fibers',
-        'meals',
-        'minerals',
-        'proteins',
-        'vitamins',
-        'drinks'
-    ];
+    function renderSearch() {
+        const tables = [
+            'carbs',
+            'dietrestrictions',
+            'fats',
+            'fibers',
+            'meals',
+            'minerals',
+            'proteins',
+            'vitamins',
+            'drinks',
+        ];
 
-    // Create the dropdown options from the table names
-    const tableOptions = tables
-        .map(table => `<option value="${table}">${table}</option>`)
-        .join('');
+        const tableOptions = tables
+            .map((table) => `<option value="${table}">${table}</option>`)
+            .join('');
 
-    mainContent.innerHTML = `
+        mainContent.innerHTML = `
         <h2>Search Records</h2>
         <label for="searchTable">Select Table:</label>
         <select id="searchTable">${tableOptions}</select>
-        <input type="text" id="searchName" placeholder="Search Name">
-        <button id="searchBtn2">Search</button>
-        <ul id="searchResults"></ul>
+        <table id="searchResultsTable" border="1">
+            <thead>
+                <tr id="searchResultsHeader"></tr>
+            </thead>
+            <tbody id="searchResultsBody"></tbody>
+        </table>
     `;
 
-    document.getElementById('searchBtn2').addEventListener('click', async () => {
-        const table = document.getElementById('searchTable').value;
-        const name = document.getElementById('searchName').value;
+        const searchTable = document.getElementById('searchTable');
 
-        try {
-            // Sending the request to the backend with the selected table and name
-            const response = await fetch(`http://35.208.93.54:8080/api/search?table=${table}&name=${name}`);
+        searchTable.addEventListener('change', async () => {
+            const table = searchTable.value;
 
-            if (!response.ok) {
-                console.error('Error response:', response.status);
-                const errorText = await response.text();
-                console.error('Error details:', errorText);
-                throw new Error('Failed to search records');
-            }
+            try {
+                // Fetch data for the selected table
+                const response = await fetch(`http://35.208.93.54:8080/api/search/${table}`);
 
-            // Parse the JSON response
-            const result = await response.json();
-            console.log('Result from backend:', result);
-
-            const searchResults = document.getElementById('searchResults');
-            searchResults.innerHTML = ''; // Clear previous results
-
-            // Format the result, excluding `id` fields
-            if (result && typeof result === 'object') {
-                for (const [key, value] of Object.entries(result)) {
-                    if (!key.toLowerCase().includes('id')) { // Exclude any key containing 'id'
-                        const item = document.createElement('li');
-                        item.textContent = `${key}: ${value}`; // Format as "key: value"
-                        searchResults.appendChild(item);
-                    }
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Error response:', response.status, errorText);
+                    throw new Error('Failed to fetch records');
                 }
-            } else {
-                searchResults.innerHTML = '<li>No records found</li>';
+
+                const results = await response.json();
+                console.log('Result from backend:', results);
+
+                const headerRow = document.getElementById('searchResultsHeader');
+                const body = document.getElementById('searchResultsBody');
+
+                // Clear previous results
+                headerRow.innerHTML = '';
+                body.innerHTML = '';
+
+                if (results.length > 0) {
+                    // Dynamically create table headers
+                    const headers = Object.keys(results[0]); // Ensure it handles multiple rows
+                    headers.forEach((header) => {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+                        headerRow.appendChild(th);
+                    });
+
+                    // Populate table rows
+                    results.forEach((record) => {
+                        const tr = document.createElement('tr');
+                        headers.forEach((header) => {
+                            const td = document.createElement('td');
+                            td.textContent = record[header];
+                            tr.appendChild(td);
+                        });
+                        body.appendChild(tr);
+                    });
+                } else {
+                    const noDataRow = document.createElement('tr');
+                    const noDataCell = document.createElement('td');
+                    noDataCell.colSpan = 1;
+                    noDataCell.textContent = 'No records found';
+                    noDataRow.appendChild(noDataCell);
+                    body.appendChild(noDataRow);
+                }
+            } catch (error) {
+                alert('Failed to fetch records');
+                console.error('Search error:', error);
             }
-        } catch (error) {
-            alert('Failed to search records');
-            console.error('Search error:', error);
-        }
-    });
-}
+        });
+
+
+        // Trigger change event for the first table on page load
+        searchTable.dispatchEvent(new Event('change'));
+    }
     // Initialize the app by rendering the home page
     renderHome();
 });
