@@ -39,21 +39,20 @@ app.post('/api/users/register', async (req, res) => {
 
 
   // User login
-  app.post('/api/users/login', async (req, res) => {
-    const { identifier, user_pass } = req.body; // Identifier can be username or email
+   app.post('/api/users/login', async (req, res) => {
+       const { identifier, user_pass } = req.body;
 
-    try {
-      const user = await findUserByUsername(db, identifier);
+       try {
+           const user = await findUserByUsername(db, identifier);
 
-      if (!user || user.user_pass !== user_pass) {
-        return res.status(401).json({ message: 'Invalid username/email or password' });
-      }
+           if (!user || user.user_pass !== user_pass) {
+               return res.status(401).json({ message: 'Invalid username/email or password' });
+           }
 
-      res.status(200).json({ message: 'Login successful', userId: user.id });
-    } catch (error) {
-      res.status(500).json({ message: 'Login failed', error: error.message });
-    }
-  });
-};
-
+           res.status(200).json({ message: 'Login successful', userId: user.user_id });
+       } catch (error) {
+           res.status(500).json({ message: 'Login failed', error: error.message });
+       }
+   });
+}
 module.exports = { register };
