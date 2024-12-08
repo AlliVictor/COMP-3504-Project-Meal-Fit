@@ -1,7 +1,7 @@
 const { generateMealPlan } = require('./models/meal');
 
 const registerMealRoutes = (app, db) => {
- app.post('/api/meals/plan', async (req, res) => {
+app.post('/api/meals/plan', async (req, res) => {
         const { dietRestrictions } = req.body;
 
         try {
@@ -54,8 +54,7 @@ const registerMealRoutes = (app, db) => {
                     meals: meals.slice(i * 3, i * 3 + 3),
                 });
             }
-
-            res.status(200).json(mealPlan);
+ res.status(200).json(mealPlan);
         } catch (error) {
             console.error('Error generating meal plan:', error);
             res.status(500).send({ error: 'Failed to generate meal plan' });
