@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
    // Function to show detailed information of a meal
    async function showMealDetails(meal) {
        // If there's already a meal details container open, close it
-       if (currentMealDetails) {
+       if (currentMealDetails && mainContent.contains(currentMealDetails)) {
            mainContent.removeChild(currentMealDetails);
        }
 
@@ -245,15 +245,25 @@ document.addEventListener('DOMContentLoaded', () => {
             'description',
         ];
 
+        // Map backend column names to frontend display names
+        const columnDisplayNames = {
+            meal_name: 'Meal Name',
+            drink_name: 'Drink',
+            restriction_name: 'Diet Restriction',
+            calories: 'Calories (Kcal)',
+        };
+
         mainContent.innerHTML = `
-          <h2>Meals Table</h2>
-          <table id="mealsTable" border="1">
-              <thead>
-                  <tr id="mealsTableHeader"></tr>
-              </thead>
-              <tbody id="mealsTableBody"></tbody>
-          </table>
-      `;
+            <h2>Meals Table</h2>
+            <div id="mealsTableContainer">
+                <table id="mealsTable" border="1">
+                    <thead>
+                        <tr id="mealsTableHeader"></tr>
+                    </thead>
+                    <tbody id="mealsTableBody"></tbody>
+                </table>
+            </div>
+        `;
 
         async function fetchMeals() {
             try {
@@ -281,9 +291,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const headers = Object.keys(results[0]).filter(
                         (header) => !hiddenColumns.includes(header)
                     );
+
                     headers.forEach((header) => {
                         const th = document.createElement('th');
-                        th.textContent = header;
+                        th.textContent = columnDisplayNames[header] || header; // Use display name or fallback to raw name
                         headerRow.appendChild(th);
                     });
 
@@ -316,6 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fetchMeals();
     }
+
 
 
     // Initialize the app by rendering the home page
