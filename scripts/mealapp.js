@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const homeBtn = document.getElementById('homeBtn');
     const mealPlanBtn = document.getElementById('mealPlanBtn');
     const usersBtn = document.getElementById('usersBtn');
-    const searchBtn = document.getElementById('searchBtn');
+    const mealBtn = document.getElementById('mealBtn');
     const loginBtn = document.getElementById('loginBtn');
 
     // Event Listeners
     homeBtn.addEventListener('click', renderHome);
     mealPlanBtn.addEventListener('click', renderMealPlan);
     usersBtn.addEventListener('click', renderUsers);
-    searchBtn.addEventListener('click', renderSearch);
+    mealBtn.addEventListener('click', renderMealsTable);
     loginBtn.addEventListener('click', renderLogin);
 
     // Home Page
@@ -233,70 +233,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Search Page
-    function renderSearch() {
-        const tables = [
-            'carbs',
-            'dietrestrictions',
-            'fats',
-            'fibers',
-            'meals',
-            'minerals',
-            'proteins',
-            'vitamins',
-            'drinks',
+    function renderMealsTable() {
+        const hiddenColumns = [
+            'meal_id',
+            'carb_name',
+            'protein_name',
+            'fat_name',
+            'fiber_name',
+            'vitamin_name',
+            'mineral_name',
+            'description',
         ];
 
-        const tableOptions = tables
-            .map((table) => `<option value="${table}">${table}</option>`)
-            .join('');
-
         mainContent.innerHTML = `
-        <h2>Search Records</h2>
-        <label for="searchTable">Select Table:</label>
-        <select id="searchTable">${tableOptions}</select>
-        <table id="searchResultsTable" border="1">
-            <thead>
-                <tr id="searchResultsHeader"></tr>
-            </thead>
-            <tbody id="searchResultsBody"></tbody>
-        </table>
-    `;
+          <h2>Meals Table</h2>
+          <table id="mealsTable" border="1">
+              <thead>
+                  <tr id="mealsTableHeader"></tr>
+              </thead>
+              <tbody id="mealsTableBody"></tbody>
+          </table>
+      `;
 
-        const searchTable = document.getElementById('searchTable');
-
-        searchTable.addEventListener('change', async () => {
-            const table = searchTable.value;
-
+        async function fetchMeals() {
             try {
-                // Fetch data for the selected table
-                const response = await fetch(`http://35.208.93.54:8080/api/search/${table}`);
+                // Fetch data for the meals table
+                const response = await fetch(`http://35.208.93.54:8080/api/search/meals`);
 
                 if (!response.ok) {
                     const errorText = await response.text();
                     console.error('Error response:', response.status, errorText);
-                    throw new Error('Failed to fetch records');
+                    throw new Error('Failed to fetch meals data');
                 }
 
                 const results = await response.json();
                 console.log('Result from backend:', results);
 
-                const headerRow = document.getElementById('searchResultsHeader');
-                const body = document.getElementById('searchResultsBody');
+                const headerRow = document.getElementById('mealsTableHeader');
+                const body = document.getElementById('mealsTableBody');
 
                 // Clear previous results
                 headerRow.innerHTML = '';
                 body.innerHTML = '';
 
                 if (results.length > 0) {
-                    // Dynamically create table headers
-                    const headers = Object.keys(results[0]); // Ensure it handles multiple rows
+                    // Dynamically create table headers, excluding hidden columns
+                    const headers = Object.keys(results[0]).filter(
+                        (header) => !hiddenColumns.includes(header)
+                    );
                     headers.forEach((header) => {
                         const th = document.createElement('th');
                         th.textContent = header;
                         headerRow.appendChild(th);
                     });
 
-                    // Populate table rows
+                    // Populate table rows, excluding hidden columns
                     results.forEach((record) => {
                         const tr = document.createElement('tr');
                         headers.forEach((header) => {
@@ -304,6 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             td.textContent = record[header];
                             tr.appendChild(td);
                         });
+
+                        // Add a click event listener to show details
+                        tr.addEventListener('click', () => showMealDetails(record));
                         body.appendChild(tr);
                     });
                 } else {
@@ -315,15 +309,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     body.appendChild(noDataRow);
                 }
             } catch (error) {
-                alert('Failed to fetch records');
-                console.error('Search error:', error);
+                alert('Failed to fetch meals data');
+                console.error('Error:', error);
             }
-        });
+        }
 
-
-        // Trigger change event for the first table on page load
-        searchTable.dispatchEvent(new Event('change'));
+        fetchMeals();
     }
+
+
     // Initialize the app by rendering the home page
     renderHome();
 });
