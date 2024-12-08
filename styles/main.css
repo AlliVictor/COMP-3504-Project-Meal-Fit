@@ -11,14 +11,14 @@ body {
 header {
     background-color: #2e7d32; /* Dark green */
     color: #fff;
-    padding: 1em;
+    padding: 1.5em;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 header h1 {
     margin: 0;
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: bold;
     letter-spacing: 1px;
 }
@@ -43,9 +43,122 @@ nav button:hover {
     transform: scale(1.05); /* Subtle scaling effect */
 }
 
-/* Main Content */
+/* Main Content Styling */
 main {
     padding: 2em 1em;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.intro h2 {
+    font-size: 2em;
+    color: #2e7d32;
+}
+
+.intro p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.intro-image {
+    max-width: 80%;
+    height: auto;
+    margin-top: 1em;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 3em;
+}
+
+.features h3 {
+    font-size: 1.8em;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1.5em;
+    color: #2e7d32;
+}
+
+.feature-item {
+    width: 30%;
+    text-align: center;
+}
+
+.feature-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1em;
+}
+
+.feature-item p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+/* Call to Action Section */
+.call-to-action {
+    text-align: center;
+    background-color: #2e7d32;
+    padding: 2em;
+    border-radius: 8px;
+    color: white;
+}
+
+.call-to-action h3 {
+    font-size: 1.8em;
+    margin-bottom: 1em;
+}
+
+.call-to-action p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+.cta-button {
+    padding: 1em 2em;
+    background-color: #66bb6a;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #338a3e;
+}
+
+.cta-button:focus {
+    outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-item {
+        width: 80%;
+        margin-bottom: 2em;
+    }
+
+    .intro-image {
+        width: 100%;
+    }
 }
 
 /* Form Elements */
@@ -63,10 +176,11 @@ form input, form select, form button {
 
 /* Meal Plan List Container */
 #mealPlanListContainer {
-    margin: 20px auto;
+    padding-left: 20px;
+    padding-top: 20px;
     width: 60%;
-    max-width: 900px;
-    min-width: 600px;
+    max-width: 500px;
+    min-width: 200px;
 }
 
 /* Meal Plan List */
@@ -79,7 +193,9 @@ form input, form select, form button {
     height: 68vh;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #66bb6a #f1f1f1; /* Green scrollbar for Firefox */
+    scrollbar-color: #66bb6a #f1f1f1;
+    left: 0; /* Align it to the left side */
+    top: 0; /* Align it to the top */
 }
 
 /* Scrollbar for WebKit Browsers */
@@ -105,6 +221,7 @@ form input, form select, form button {
     background-color: #e8f5e9; /* Very light green */
     border: 1px solid #c8e6c9;
     border-radius: 8px;
+     list-style-type: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
 }
