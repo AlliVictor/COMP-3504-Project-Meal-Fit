@@ -21,17 +21,20 @@ module.exports.register = (app, database) => {
     });
 
 // API endpoint to fetch data from the users table
-app.get('/api/users', (req, res) => {
+app.get('/api/users', async (req, res) => {
     const query = `SELECT * FROM users`;
 
-    database.query(query, (err, results) => {
-        if (err) {
-            console.error('Error fetching data from users:', err);
-            res.status(500).json({ error: 'Internal Server Error' });
-            return;
-        }
-        res.json(results);
-    });
+    try {
+        // Use the Promise API to query the database
+        const [results] = await database.execute(query);
+
+        // Send the results as JSON
+        res.status(200).json(results);
+    } catch (err) {
+        // Log the error and send an appropriate response
+        console.error('Error fetching data from users:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 // API endpoint to fetch data from the carbs table
