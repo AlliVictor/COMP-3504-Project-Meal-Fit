@@ -192,43 +192,62 @@ document.addEventListener('DOMContentLoaded', () => {
            });
        }
 
-       // Login Page
        function renderLogin() {
-           mainContent.innerHTML = `
-         <h2>User Login</h2>
-         <form id="loginForm">
-           <input type="text" name="identifier" placeholder="Username or Email" required>
-           <input type="password" name="user_pass" placeholder="Password" required>
-           <button type="submit">Login</button>
-         </form>
-         <p id="loginMessage"></p>
-       `;
+                mainContent.innerHTML = `
+                  <h2>User Login</h2>
+                  <form id="loginForm">
+                    <input type="text" name="identifier" placeholder="Username or Email" required>
+                    <input type="password" name="user_pass" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                  </form>
+                  <p id="loginMessage"></p>
+                `;
 
-           document.getElementById('loginForm').addEventListener('submit', async (e) => {
-               e.preventDefault();
-               const formData = new FormData(e.target);
-               const loginData = Object.fromEntries(formData.entries());
+                document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target);
+                  const loginData = Object.fromEntries(formData.entries());
 
-               try {
-                   const response = await fetch('http://35.208.93.54:8080/api/users/login', {
-                       method: 'POST',
-                       headers: { 'Content-Type': 'application/json' },
-                       body: JSON.stringify(loginData),
-                   });
+                  try {
+                    const response = await fetch('http://35.208.93.54:8080/api/users/login', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(loginData),
+                    });
 
-                   const result = await response.json();
+                    const result = await response.json();
 
-                   if (response.ok) {
-                       document.getElementById('loginMessage').textContent = 'Login successful!';
-                       console.log('Logged in as:', result.userId);
-                   } else {
-                       document.getElementById('loginMessage').textContent = result.message;
-                   }
-               } catch (error) {
-                   document.getElementById('loginMessage').textContent = 'Login failed. Try again.';
-                   console.error('Login error:', error);
-               }
-           });
+                    if (response.ok) {
+                      document.getElementById('loginMessage').textContent = 'Login successful!';
+                      renderProfile(result.user);
+                    } else {
+                      document.getElementById('loginMessage').textContent = result.message;
+                    }
+                  } catch (error) {
+                    document.getElementById('loginMessage').textContent = 'Login failed. Try again.';
+                    console.error('Login error:', error);
+                  }
+                });
+              }
+
+       function renderProfile(user) {
+         mainContent.innerHTML = `
+           <h2>User Profile</h2>
+           <ul>
+             <li><strong>Name:</strong> ${user.user_name}</li>
+             <li><strong>Email:</strong> ${user.user_email}</li>
+             <li><strong>Age:</strong> ${user.user_age}</li>
+             <li><strong>Gender:</strong> ${user.user_gender}</li>
+             <li><strong>Dietary Restrictions:</strong> ${user.user_dietrestrictions}</li>
+             <li><strong>Allergies:</strong> ${user.allergies}</li>
+           </ul>
+           <button id="logoutBtn">Logout</button>
+         `;
+
+         document.getElementById('logoutBtn').addEventListener('click', () => {
+           alert('Logged out successfully!');
+           renderLogin();
+         });
        }
 
 
@@ -254,7 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         mainContent.innerHTML = `
-            <h2>Meals Table</h2>
             <div id="mealsTableContainer">
                 <table id="mealsTable" border="1">
                     <thead>
