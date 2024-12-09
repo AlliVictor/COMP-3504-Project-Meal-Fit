@@ -5,24 +5,13 @@ body {
     padding: 0;
     background-color: #eaf7ea; /* Soft green background */
     color: #333;
-    line-height: 1.6;
-}
-
-/* Center non-meal pages */
-main.centered-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 120px); /* Adjust for header height */
-    text-align: center;
-    flex-direction: column;
 }
 
 /* Header Styling */
 header {
     background-color: #2e7d32; /* Dark green */
     color: #fff;
-    padding: 1em;
+    padding: 1.5em;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -50,19 +39,122 @@ nav button {
 }
 
 nav button:hover {
-    background-color: #338a3e; /* Darker green on hover */
+    background-color: #023020; /* Darker green on hover */
     transform: scale(1.05); /* Subtle scaling effect */
 }
 
-/* Main Content */
+/* Main Content Styling */
 main {
     padding: 2em 1em;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 2em;
+    padding-bottom: 30px;
+}
+
+.intro h2 {
+    font-size: 2em;
+    color: #2e7d32;
+}
+
+.intro p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.intro-image {
+    max-width: 80%;
+    height: auto;
+    margin-top: 1em;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 3em;
+    padding-top: 60px;
+}
+
+.whymealfit {
+    font-size: 1.8em;
+    text-align: center;
+    width: 30%;
+    margin: 0 auto; /* Centers the element horizontally */
+    margin-bottom: 1.5em;
+    color: #2e7d32;
+}
+
+.feature-item {
+    width: 30%;
+    text-align: center;
+}
+
+.feature-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1em;
+}
+
+.feature-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1em;
+}
+
+.feature-item p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.homepagedescription {
+    width: 50%;
+    font-size: 1.1em;
+    color: #555;
+    border: 0px solid #006400; /* Thick, dark green border */
+    border-radius: 15px; /* Rounds the corners */
+    background-color: #d4e6d5; /* Softer green background */
+    margin: 0 auto; /* Centers the block element horizontally */
+    text-align: center; /* Centers text inside the container */
+    padding: 20px; /* Adds padding inside the container */
+}
+
+.homepagedescription p {
+    width: 30%; /* Set the width of the paragraph */
+    margin: 0 auto; /* Centers the paragraph inside the container */
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-item {
+        width: 70%;
+        margin-bottom: 2em;
+    }
+
+    .intro-image {
+        width: 100%;
+    }
 }
 
 /* Form Elements */
 form input, form select, form button {
     display: block;
-    margin: 10px auto;
+    margin: 10px 0;
     padding: 0.5em;
     font-size: 1em;
     border: 1px solid #ccc;
@@ -72,108 +164,143 @@ form input, form select, form button {
     box-sizing: border-box;
 }
 
+/* Container for Input and Button */
+#inputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between input and button */
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Input Field */
+#dietRestrictions {
+    flex: 1; /* Allow input to take available space */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #c8e6c9; /* Light green border */
+    border-radius: 8px; /* Rounded corners */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#dietRestrictions:focus {
+    border-color: #66bb6a; /* Highlight border on focus */
+    box-shadow: 0 0 5px #66bb6a; /* Subtle glow effect */
+}
+
+/* Button */
+#generatePlanBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #66bb6a; /* Green button background */
+    color: white;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#generatePlanBtn:hover {
+    background-color: #388e3c; /* Darker green on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
+}
+
+#generatePlanBtn:active {
+    background-color: #2e7d32; /* Even darker green on click */
+    transform: scale(0.98); /* Slight scale-down effect */
+}
+
 /* Meal Plan List Container */
 #mealPlanListContainer {
-    padding-left: 20px;
-    padding-top: 20px;
-    width: 60%;
-    max-width: 500px;
-    min-width: 200px;
+    display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    gap: 20px; /* Space between rows */
 }
 
-/* Meal Plan List */
-#mealPlanList {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    display: inline-block;
-    height: 68vh;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #66bb6a #f1f1f1;
-    left: 0; /* Align it to the left side */
-    top: 0; /* Align it to the top */
+.meal-plan-row {
+    display: flex; /* Align items horizontally in the row */
+    gap: 20px; /* Space between day cards */
 }
 
-/* Scrollbar for WebKit Browsers */
-#mealPlanList::-webkit-scrollbar {
-    width: 8px;
-}
-
-#mealPlanList::-webkit-scrollbar-thumb {
-    background-color: #66bb6a; /* Green */
-    border-radius: 10px;
-    border: 2px solid #f1f1f1; /* Light border */
-}
-
-#mealPlanList::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Track color */
-    border-radius: 10px;
-}
-
-/* Meal List Items */
-#mealPlanList li {
-    list-style-type: none ;
-    margin: 10px;
+.day-card {
+    background-color: #e8f5e9; /* Light green background */
+    border: 1px solid #c8e6c9; /* Light green border */
+    border-radius: 8px; /* Rounded corners */
     padding: 15px;
-    background-color: #e8f5e9; /* Very light green */
-    border: 1px solid #c8e6c9;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 18%; /* Each card takes 30% of the row width */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center; /* Center the text */
+    margin-top: 15px;
+}
+
+
+.day-card ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+.day-card li {
+    margin: 10px 0; /* Space between meal items */
+    padding: 5px;
+    background-color: #ffffff; /* White background for meals */
+    border-radius: 5px; /* Rounded corners */
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-#mealPlanList li.highlighted {
-    background-color: #dcedc8; /* Yellow-green for highlighted */
-    transform: scale(1.05);
-    border-color: #a5d6a7; /* Lighter border color */
+.day-card li:hover {
+    background-color: #c8e6c9; /* Highlight on hover */
 }
 
-#mealPlanList li:hover {
-    background-color: #c8e6c9; /* Light green on hover */
-    border-color: #66bb6a; /* Green border */
-}
 
 /* Meal Details Styling */
+/* Meal Details Container */
 .meal-details-container {
     position: fixed;
     right: 50px;
-    top: 10%;
+    top: 17.5%; /* Increased top value to move it lower */
     width: 650px;
     max-width: 90%;
-    background-color: #ffffff;
-    border: 5px solid #c8e6c9;
-    border-radius: 10px;
-    padding: 40px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    max-height: 90%;
-    overflow-y: auto;
+    background-color: #f9f9f9; /* Light background for a clean look */
+    border: 1px solid #ddd; /* Subtle border for structure */
+    border-radius: 10px; /* Rounded corners for smoothness */
+    padding: 20px; /* Inner padding */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+    z-index: 1000; /* Ensure it's above other content */
+    max-height: 80%; /* Reduced max height to account for nav overlap */
+    overflow-y: auto; /* Allow scrolling for longer content */
     box-sizing: border-box;
     display: none;
 }
 
+
 /* Title and Meal Information */
 .meal-details-container h3 {
     margin-top: 0;
-    font-size: 24px;
+    font-size: 2em;
     font-weight: bold;
-    color: #2e7d32; /* Dark green */
+    color: #2d7a3e; /* Dark green for consistency */
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 .meal-details-container p {
-    font-size: 16px;
+    font-size: 1.1em;
     line-height: 1.8;
     margin: 10px 0;
+    color: #555; /* Neutral text color for readability */
 }
 
 /* Nutritional Information */
 .meal-details-container h4 {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: bold;
-    color: #388e3c; /* Medium green */
+    color: #3c9f4e; /* Medium green for labels */
 }
 
 /* Meal Image */
@@ -181,9 +308,10 @@ form input, form select, form button {
     width: 100%;
     max-width: 500px;
     height: auto;
-    margin: 20px 0;
+    margin: 20px auto; /* Center the image */
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    display: block; /* Center the image */
 }
 
 /* Meal details container styling */
@@ -192,22 +320,57 @@ form input, form select, form button {
     padding-left: 0;
 }
 
-/* Flex container to arrange nutritional info and description side by side */
+/* Flex container for side-by-side layout */
 .meal-details-container .details-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* Space between nutritional info and description */
+    gap: 20px; /* Space between sections */
+    flex-wrap: wrap; /* Wrap content for smaller screens */
 }
 
-/* Nutritional information section (on the left) */
+/* Nutritional information section */
 .meal-details-container .nutritional-info {
     flex: 1; /* Take up remaining space */
+    background-color: #ffffff; /* Light background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* Description section (on the right) */
+/* Description section */
 .meal-details-container .description {
     flex: 1; /* Take up remaining space */
+    background-color: #ffffff; /* Light background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
+
+/* Close Button */
+.meal-details-container button {
+    display: block;
+    margin: 20px auto;
+    background-color: #e74c3c; /* Red for close button */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.meal-details-container button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+.meal-details-container button:active {
+    background-color: #a93226; /* Even darker red when active */
+}
+
 
 
 /* Close Button */
@@ -228,27 +391,79 @@ form input, form select, form button {
     background-color: #b71c1c; /* Darker red */
 }
 
-/* General styling for the meals table */
-#mealsTable {
-    width: 100%; /* Make the table span the full width */
-    border-collapse: collapse; /* Remove gaps between table cells */
-    margin: 20px auto; /* Center the table with top/bottom margin */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a subtle elevation effect */
+/* Meals Table Container */
+#mealsTableContainer {
+    padding: 20px;
+    width: 90%;
+    max-width: 1100px;
+    background-color: #e8f5e9; /* Light green background */
+    border: 1px solid #c8e6c9; /* Soft border matching meal plan list */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-#mealsTable th, #mealsTable td {
+/* General styling for the meals table */
+#mealsTable {
+    width: 100%; /* Full-width table */
+    border-collapse: collapse; /* Remove gaps between table cells */
+    margin: 20px 0; /* Top/bottom spacing for the table */
+    font-size: 16px; /* Standard readable font size */
+    color: #333; /* Neutral text color */
+}
+
+/* Table header styling */
+#mealsTable th {
+    background-color: #66bb6a; /* Green header background */
+    color: white; /* White text for contrast */
+    padding: 15px;
+    text-align: left; /* Align text to the left */
+    font-size: 1.1em; /* Slightly larger font size */
+    border: 1px solid #ddd; /* Light border for headers */
+    position: sticky;
+    top: 0; /* Sticky header for scrolling */
+    z-index: 1; /* Ensure the header stays on top */
+}
+
+/* Table cell styling */
+#mealsTable td {
     padding: 12px 20px; /* Padding inside cells */
     text-align: left; /* Align text to the left */
     border: 1px solid #ddd; /* Light border around cells */
 }
 
+/* Alternating row colors */
 #mealsTable tr:nth-child(even) {
     background-color: #f9f9f9; /* Light gray for alternating rows */
 }
 
-#mealsTable tr:hover {
-    background-color: #f1f1f1; /* Light hover effect */
+#mealsTable tr:nth-child(odd) {
+    background-color: #ffffff; /* White for odd rows */
 }
+
+/* Hover effect for rows */
+#mealsTable tr:hover {
+    background-color: #c8e6c9; /* Light green on hover */
+    cursor: pointer; /* Indicate interactivity */
+    transform: scale(1.02); /* Slight scale-up for emphasis */
+    transition: all 0.2s ease-in-out; /* Smooth transition effect */
+}
+
+/* Scrollbar styling for table container */
+#mealsTableContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+#mealsTableContainer::-webkit-scrollbar-thumb {
+    background-color: #66bb6a; /* Green */
+    border-radius: 5px;
+    border: 2px solid #f1f1f1; /* Light border */
+}
+
+#mealsTableContainer::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track color */
+    border-radius: 10px;
+}
+
 
 /* Close Button */
 #closeMealDetails {
@@ -266,4 +481,62 @@ form input, form select, form button {
 
 #closeMealDetails:hover {
     background-color: #b71c1c; /* Darker red */
+}
+
+/* User Profile Section */
+#userProfile {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  background-color: #f9f9f9; /* Light gray background for profile */
+  border: 1px solid #ddd; /* Subtle border for structure */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+#userProfile h2 {
+  font-size: 2em;
+  color: #2d7a3e; /* Green color for the heading */
+  margin-bottom: 15px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#userProfile ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+#userProfile ul li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd; /* Divider between items */
+  font-size: 1.1em;
+  color: #555; /* Neutral text color */
+}
+
+#userProfile ul li:last-child {
+  border-bottom: none; /* Remove border for the last item */
+}
+
+#userProfile ul li strong {
+  color: #3c9f4e; /* Green accent for labels */
+}
+
+#userProfile button {
+  display: block;
+  margin: 20px auto;
+  background-color: #e74c3c; /* Red for logout button */
+  color: white;
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#userProfile button:hover {
+  background-color: #c0392b;
 }
