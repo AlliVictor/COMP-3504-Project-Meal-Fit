@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // Fetch meal plan from the server
-                const response = await fetch('https://prog-iv-vm-and-db-creation.uc.r.appspot.com/api/meals/plan', {
+                const response = await fetch('http://35.208.93.54:8080/api/meals/plan', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ dietRestrictions: restrictions }),
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const userData = Object.fromEntries(formData.entries());
           try {
               // Send registration request
-              const response = await fetch('https://prog-iv-vm-and-db-creation.uc.r.appspot.com/api/users/register', {
+              const response = await fetch('http://35.208.93.54:8080/api/users/register', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify(userData),
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       user_pass: userData.user_pass,
                   };
 
-                  const loginResponse = await fetch('https://prog-iv-vm-and-db-creation.uc.r.appspot.com/api/users/login', {
+                  const loginResponse = await fetch('http://35.208.93.54:8080/api/users/login', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify(loginData),
@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const loginData = Object.fromEntries(formData.entries());
 
             try {
-                const response = await fetch('https://prog-iv-vm-and-db-creation.uc.r.appspot.com/api/users/login', {
+                const response = await fetch('http://35.208.93.54:8080/api/users/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(loginData),
@@ -507,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
         async function fetchMeals() {
             try {
                 // Fetch data for the meals table
-                const response = await fetch(`https://prog-iv-vm-and-db-creation.uc.r.appspot.com/api/search/meals`);
+                const response = await fetch(`http://35.208.93.54:8080/api/search/meals`);
 
                 if (!response.ok) {
                     const errorText = await response.text();
