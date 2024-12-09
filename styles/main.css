@@ -51,6 +51,7 @@ main {
 .intro {
     text-align: center;
     margin-bottom: 2em;
+    padding-bottom: 30px;
 }
 
 .intro h2 {
@@ -74,15 +75,18 @@ main {
 /* Features Section */
 .features {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     gap: 30px;
     margin-bottom: 3em;
+    padding-top: 60px;
 }
 
-.features h3 {
+.whymealfit {
     font-size: 1.8em;
     text-align: center;
-    width: 100%;
+    width: 30%;
+    margin: 0 auto; /* Centers the element horizontally */
     margin-bottom: 1.5em;
     color: #2e7d32;
 }
@@ -90,6 +94,13 @@ main {
 .feature-item {
     width: 30%;
     text-align: center;
+}
+
+.feature-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1em;
 }
 
 .feature-image {
@@ -105,44 +116,23 @@ main {
     color: #555;
 }
 
-/* Call to Action Section */
-.call-to-action {
-    text-align: center;
-    background-color: #2e7d32;
-    padding: 2em;
-    border-radius: 8px;
-    color: white;
+.homepagedescription {
+    width: 50%;
+    font-size: 1.1em;
+    color: #555;
+    border: 0px solid #006400; /* Thick, dark green border */
+    border-radius: 15px; /* Rounds the corners */
+    background-color: #d4e6d5; /* Softer green background */
+    margin: 0 auto; /* Centers the block element horizontally */
+    text-align: center; /* Centers text inside the container */
+    padding: 20px; /* Adds padding inside the container */
 }
 
-.call-to-action h3 {
-    font-size: 1.8em;
-    margin-bottom: 1em;
+.homepagedescription p {
+    width: 30%; /* Set the width of the paragraph */
+    margin: 0 auto; /* Centers the paragraph inside the container */
 }
 
-.call-to-action p {
-    font-size: 1.2em;
-    margin-bottom: 1.5em;
-}
-
-.cta-button {
-    padding: 1em 2em;
-    background-color: #66bb6a;
-    color: white;
-    font-size: 1.2em;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.cta-button:hover {
-    background-color: #338a3e;
-}
-
-.cta-button:focus {
-    outline: none;
-}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -152,7 +142,7 @@ main {
     }
 
     .feature-item {
-        width: 80%;
+        width: 70%;
         margin-bottom: 2em;
     }
 

@@ -21,22 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
       <section class="intro">
                              <h2>Welcome to MealFIT</h2>
                              <p>Your personalized meal planning companion that helps you eat healthier and smarter.</p>
-                             <img src="meal-plan-image.jpg" alt="Healthy Meal Plan" class="intro-image">
+                             <img src="./images/kkmm.png" alt="Healthy Meal Plan" width="540" height="326"  class="intro-image">
                          </section>
 
+                        <h3 class="whymealfit">Why MealFIT?</h3>
+                         <p class="homepagedescription">
+                              Meal Fit is your ultimate solution for hassle-free meal planning. Designed to cater to your unique dietary needs,
+                              Meal Fit generates personalized weekly meal plans tailored specifically for you. Whether you have specific dietary
+                              restrictions or simply want to maintain a balanced diet, our app ensures every meal is perfectly suited to your lifestyle.
+                              With Meal Fit, you'll receive detailed ingredient lists for each meal, making grocery shopping a breeze. Say goodbye to
+                               meal-planning stress and hello to a healthier, more organized you. Start your journey to effortless meal planning with Meal Fit today!
+                         </p>
+
                          <section class="features">
-                             <h3>Why MealFIT?</h3>
+                             <div class="feature-container">
                              <div class="feature-item">
-                                 <img src="personalized-meals.jpg" alt="Personalized Meals" class="feature-image">
-                                 <p>Personalized meal plans based on your dietary needs, preferences, and goals.</p>
+                                <img src="./images/personalized-meals.jpg" alt="Personalized Meals" class="feature-image">
+                                <p>Personalized meal plans based on your dietary needs.</p>
                              </div>
+
                              <div class="feature-item">
-                                 <img src="shopping-list.jpg" alt="Shopping List" class="feature-image">
-                                 <p>Generated shopping lists to make grocery shopping easy and organized.</p>
-                             </div>
-                             <div class="feature-item">
-                                 <img src="healthy-recipes.jpg" alt="Healthy Recipes" class="feature-image">
+                                 <img src="./images/healthy-recipes.jpg" alt="Healthy Recipes" class="feature-image">
                                  <p>Healthy, easy-to-follow recipes with all the nutrition information you need.</p>
+                             </div>
                              </div>
                          </section>
     `;
