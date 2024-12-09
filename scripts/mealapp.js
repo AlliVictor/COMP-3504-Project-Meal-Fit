@@ -225,8 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }));
     }
 
-
-
     // Users Page
     function renderUsers() {
         mainContent.innerHTML = `
