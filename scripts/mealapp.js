@@ -40,10 +40,25 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p>Personalized meal plans based on your dietary needs.</p>
                              </div>
 
+                              <div class="diet-item">
+                                <h3>Dietary Restrictions</h3>
+
+                                   <ul id = "diet-list">
+                                   <li>Dairy-Free</li>
+                                   <li> Gluten-Free</li>
+                                   <li>Halal</li>
+                                   <li>Vegan</li>
+                                   <li> Vegetarian</li>
+                                   <li> Pescatarian</li>
+
+                                   </ul>
+                              </div>
                              <div class="feature-item">
                                  <img src="./images/healthy-recipes.jpg" alt="Healthy Recipes" class="feature-image">
                                  <p>Healthy, easy-to-follow recipes with all the nutrition information you need.</p>
                              </div>
+
+
                              </div>
                          </section>
     `;
@@ -133,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newRestrictions = document.getElementById('dietRestrictions').value.trim();
             fetchAndDisplayMealPlan(newRestrictions);
         });
-}
+    }
 
 
     // Global variable to keep track of the current meal details container
@@ -159,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const mealDetailsHTML = `
            <h3>Meal Details</h3>
            <p><strong>Meal Name:</strong> ${meal.meal_name}</p>
-           <img src="${meal.image_url || 'default_image.jpg'}" alt="Meal Image"/>
+
 
            <div class="details-container">
                <!-- Description Section (Left) -->
@@ -228,6 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Users Page
     function renderUsers() {
         mainContent.innerHTML = `
+        <div id= "FormContainer">
           <h2>User Registration</h2>
           <form id="userForm">
             <input type="text" name="user_name" placeholder="Name" required>
@@ -242,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <input type="text" name="allergies" placeholder="Allergies">
             <button type="submit">Register</button>
           </form>
+          </div>
         `;
 
         document.getElementById('userForm').addEventListener('submit', async (e) => {
@@ -360,13 +377,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         mainContent.innerHTML = `
-        <h2>User Login</h2>
-        <form id="loginForm">
-          <input type="text" name="identifier" placeholder="Username or Email" required>
-          <input type="password" name="user_pass" placeholder="Password" required>
-          <button type="submit">Login</button>
-        </form>
-        <p id="loginMessage"></p>
+
+        <div id="FormContainer">
+         <h2>User Login</h2>
+            <form id="loginForm">
+                <input type="text" name="identifier" placeholder="Username or Email" required>
+                <input type="password" name="user_pass" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p id="loginMessage"></p>
+        </div>
+
+
       `;
 
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -398,8 +420,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-   function renderProfile(user) {
-     mainContent.innerHTML = `
+    function renderProfile(user) {
+        mainContent.innerHTML = `
        <div id="userProfile">
          <h2>User Profile</h2>
          <ul>
@@ -410,16 +432,15 @@ document.addEventListener('DOMContentLoaded', () => {
            <li><strong>Dietary Restrictions:</strong> ${user.user_dietrestrictions}</li>
            <li><strong>Allergies:</strong> ${user.allergies}</li>
          </ul>
-         <button id="logoutBtn">Logout</button>
        </div>
      `;
 
-     document.getElementById('logoutBtn').addEventListener('click', () => {
-       localStorage.removeItem('loggedInUser'); // Clear user session
-       updateNavButtons(); // Update navigation buttons
-       renderLogin(); // Redirect to login screen
-     });
-   }
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('loggedInUser'); // Clear user session
+            updateNavButtons(); // Update navigation buttons
+            renderLogin(); // Redirect to login screen
+        });
+    }
 
 
     // Initial setup
