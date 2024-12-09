@@ -39,7 +39,7 @@ nav button {
 }
 
 nav button:hover {
-    background-color: #338a3e; /* Darker green on hover */
+    background-color: #023020; /* Darker green on hover */
     transform: scale(1.05); /* Subtle scaling effect */
 }
 
@@ -164,108 +164,143 @@ form input, form select, form button {
     box-sizing: border-box;
 }
 
+/* Container for Input and Button */
+#inputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between input and button */
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Input Field */
+#dietRestrictions {
+    flex: 1; /* Allow input to take available space */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #c8e6c9; /* Light green border */
+    border-radius: 8px; /* Rounded corners */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#dietRestrictions:focus {
+    border-color: #66bb6a; /* Highlight border on focus */
+    box-shadow: 0 0 5px #66bb6a; /* Subtle glow effect */
+}
+
+/* Button */
+#generatePlanBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #66bb6a; /* Green button background */
+    color: white;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#generatePlanBtn:hover {
+    background-color: #388e3c; /* Darker green on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
+}
+
+#generatePlanBtn:active {
+    background-color: #2e7d32; /* Even darker green on click */
+    transform: scale(0.98); /* Slight scale-down effect */
+}
+
 /* Meal Plan List Container */
 #mealPlanListContainer {
-    padding-left: 20px;
-    padding-top: 20px;
-    width: 60%;
-    max-width: 500px;
-    min-width: 200px;
+    display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    gap: 20px; /* Space between rows */
 }
 
-/* Meal Plan List */
-#mealPlanList {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    display: inline-block;
-    height: 68vh;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #66bb6a #f1f1f1;
-    left: 0; /* Align it to the left side */
-    top: 0; /* Align it to the top */
+.meal-plan-row {
+    display: flex; /* Align items horizontally in the row */
+    gap: 20px; /* Space between day cards */
 }
 
-/* Scrollbar for WebKit Browsers */
-#mealPlanList::-webkit-scrollbar {
-    width: 8px;
-}
-
-#mealPlanList::-webkit-scrollbar-thumb {
-    background-color: #66bb6a; /* Green */
-    border-radius: 10px;
-    border: 2px solid #f1f1f1; /* Light border */
-}
-
-#mealPlanList::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Track color */
-    border-radius: 10px;
-}
-
-/* Meal List Items */
-#mealPlanList li {
-    margin: 10px;
+.day-card {
+    background-color: #e8f5e9; /* Light green background */
+    border: 1px solid #c8e6c9; /* Light green border */
+    border-radius: 8px; /* Rounded corners */
     padding: 15px;
-    background-color: #e8f5e9; /* Very light green */
-    border: 1px solid #c8e6c9;
-    border-radius: 8px;
-     list-style-type: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 18%; /* Each card takes 30% of the row width */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center; /* Center the text */
+    margin-top: 15px;
+}
+
+
+.day-card ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+.day-card li {
+    margin: 10px 0; /* Space between meal items */
+    padding: 5px;
+    background-color: #ffffff; /* White background for meals */
+    border-radius: 5px; /* Rounded corners */
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-#mealPlanList li.highlighted {
-    background-color: #dcedc8; /* Yellow-green for highlighted */
-    transform: scale(1.05);
-    border-color: #a5d6a7; /* Lighter border color */
+.day-card li:hover {
+    background-color: #c8e6c9; /* Highlight on hover */
 }
 
-#mealPlanList li:hover {
-    background-color: #c8e6c9; /* Light green on hover */
-    border-color: #66bb6a; /* Green border */
-}
 
 /* Meal Details Styling */
+/* Meal Details Container */
 .meal-details-container {
     position: fixed;
     right: 50px;
-    top: 10%;
+    top: 17.5%; /* Increased top value to move it lower */
     width: 650px;
     max-width: 90%;
-    background-color: #ffffff;
-    border: 5px solid #c8e6c9;
-    border-radius: 10px;
-    padding: 40px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    max-height: 90%;
-    overflow-y: auto;
+    background-color: #f9f9f9; /* Light background for a clean look */
+    border: 1px solid #ddd; /* Subtle border for structure */
+    border-radius: 10px; /* Rounded corners for smoothness */
+    padding: 20px; /* Inner padding */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+    z-index: 1000; /* Ensure it's above other content */
+    max-height: 80%; /* Reduced max height to account for nav overlap */
+    overflow-y: auto; /* Allow scrolling for longer content */
     box-sizing: border-box;
     display: none;
 }
 
+
 /* Title and Meal Information */
 .meal-details-container h3 {
     margin-top: 0;
-    font-size: 24px;
+    font-size: 2em;
     font-weight: bold;
-    color: #2e7d32; /* Dark green */
+    color: #2d7a3e; /* Dark green for consistency */
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 .meal-details-container p {
-    font-size: 16px;
+    font-size: 1.1em;
     line-height: 1.8;
     margin: 10px 0;
+    color: #555; /* Neutral text color for readability */
 }
 
 /* Nutritional Information */
 .meal-details-container h4 {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: bold;
-    color: #388e3c; /* Medium green */
+    color: #3c9f4e; /* Medium green for labels */
 }
 
 /* Meal Image */
@@ -273,9 +308,10 @@ form input, form select, form button {
     width: 100%;
     max-width: 500px;
     height: auto;
-    margin: 20px 0;
+    margin: 20px auto; /* Center the image */
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    display: block; /* Center the image */
 }
 
 /* Meal details container styling */
@@ -284,21 +320,148 @@ form input, form select, form button {
     padding-left: 0;
 }
 
-/* Flex container to arrange nutritional info and description side by side */
+/* Flex container for side-by-side layout */
 .meal-details-container .details-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* Space between nutritional info and description */
+    gap: 20px; /* Space between sections */
+    flex-wrap: wrap; /* Wrap content for smaller screens */
 }
 
-/* Nutritional information section (on the left) */
+/* Nutritional information section */
 .meal-details-container .nutritional-info {
     flex: 1; /* Take up remaining space */
+    background-color: #ffffff; /* Light background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* Description section (on the right) */
+/* Description section */
 .meal-details-container .description {
     flex: 1; /* Take up remaining space */
+    background-color: #ffffff; /* Light background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Close Button */
+.meal-details-container button {
+    display: block;
+    margin: 20px auto;
+    background-color: #e74c3c; /* Red for close button */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.meal-details-container button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+.meal-details-container button:active {
+    background-color: #a93226; /* Even darker red when active */
+}
+
+
+
+/* Close Button */
+#closeMealDetails {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #d32f2f; /* Red */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#closeMealDetails:hover {
+    background-color: #b71c1c; /* Darker red */
+}
+
+/* Meals Table Container */
+#mealsTableContainer {
+    padding: 20px;
+    width: 90%;
+    max-width: 1100px;
+    background-color: #e8f5e9; /* Light green background */
+    border: 1px solid #c8e6c9; /* Soft border matching meal plan list */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* General styling for the meals table */
+#mealsTable {
+    width: 100%; /* Full-width table */
+    border-collapse: collapse; /* Remove gaps between table cells */
+    margin: 20px 0; /* Top/bottom spacing for the table */
+    font-size: 16px; /* Standard readable font size */
+    color: #333; /* Neutral text color */
+}
+
+/* Table header styling */
+#mealsTable th {
+    background-color: #66bb6a; /* Green header background */
+    color: white; /* White text for contrast */
+    padding: 15px;
+    text-align: left; /* Align text to the left */
+    font-size: 1.1em; /* Slightly larger font size */
+    border: 1px solid #ddd; /* Light border for headers */
+    position: sticky;
+    top: 0; /* Sticky header for scrolling */
+    z-index: 1; /* Ensure the header stays on top */
+}
+
+/* Table cell styling */
+#mealsTable td {
+    padding: 12px 20px; /* Padding inside cells */
+    text-align: left; /* Align text to the left */
+    border: 1px solid #ddd; /* Light border around cells */
+}
+
+/* Alternating row colors */
+#mealsTable tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for alternating rows */
+}
+
+#mealsTable tr:nth-child(odd) {
+    background-color: #ffffff; /* White for odd rows */
+}
+
+/* Hover effect for rows */
+#mealsTable tr:hover {
+    background-color: #c8e6c9; /* Light green on hover */
+    cursor: pointer; /* Indicate interactivity */
+    transform: scale(1.02); /* Slight scale-up for emphasis */
+    transition: all 0.2s ease-in-out; /* Smooth transition effect */
+}
+
+/* Scrollbar styling for table container */
+#mealsTableContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+#mealsTableContainer::-webkit-scrollbar-thumb {
+    background-color: #66bb6a; /* Green */
+    border-radius: 5px;
+    border: 2px solid #f1f1f1; /* Light border */
+}
+
+#mealsTableContainer::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track color */
+    border-radius: 10px;
 }
 
 
@@ -320,48 +483,60 @@ form input, form select, form button {
     background-color: #b71c1c; /* Darker red */
 }
 
-/* General styling for the meals table */
-#mealsTable {
-    width: 100%; /* Make the table span the full width */
-    border-collapse: collapse; /* Remove gaps between table cells */
-    margin: 20px auto; /* Center the table with top/bottom margin */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a subtle elevation effect */
+/* User Profile Section */
+#userProfile {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  background-color: #f9f9f9; /* Light gray background for profile */
+  border: 1px solid #ddd; /* Subtle border for structure */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
-/* Table header styling */
-#mealsTable thead {
-    background-color: #4CAF50; /* Green theme for header */
-    color: white;
+#userProfile h2 {
+  font-size: 2em;
+  color: #2d7a3e; /* Green color for the heading */
+  margin-bottom: 15px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-#mealsTable th, #mealsTable td {
-    padding: 12px 20px; /* Padding inside cells */
-    text-align: left; /* Align text to the left */
-    border: 1px solid #ddd; /* Light border around cells */
+#userProfile ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
 }
 
-/* Table rows styling */
-#mealsTable tr:nth-child(even) {
-    background-color: #f9f9f9; /* Light gray for alternating rows */
+#userProfile ul li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd; /* Divider between items */
+  font-size: 1.1em;
+  color: #555; /* Neutral text color */
 }
 
-#mealsTable tr:nth-child(odd) {
-    background-color: #fff; /* White for odd rows */
+#userProfile ul li:last-child {
+  border-bottom: none; /* Remove border for the last item */
 }
 
-#mealsTable tr:hover {
-    background-color: #f1f1f1; /* Light hover effect */
+#userProfile ul li strong {
+  color: #3c9f4e; /* Green accent for labels */
 }
 
-/* Header row bold */
-#mealsTable th {
-    color: #90EE90; /* Light Green */
-       font-weight: bold; /* Keep bold text */
-       font-family: Arial, sans-serif; /* Ensure consistent font */
-       text-align: left; /* Align header text to the left */
+#userProfile button {
+  display: block;
+  margin: 20px auto;
+  background-color: #e74c3c; /* Red for logout button */
+  color: white;
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Table container to handle horizontal padding */
-#mealsTableContainer {
-    padding: 0 20px; /* Add padding to left and right */
+#userProfile button:hover {
+  background-color: #c0392b;
 }
