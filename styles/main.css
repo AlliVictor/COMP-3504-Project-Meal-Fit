@@ -5,13 +5,24 @@ body {
     padding: 0;
     background-color: #eaf7ea; /* Soft green background */
     color: #333;
+    line-height: 1.6;
+}
+
+/* Center non-meal pages */
+main.centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px); /* Adjust for header height */
+    text-align: center;
+    flex-direction: column;
 }
 
 /* Header Styling */
 header {
     background-color: #2e7d32; /* Dark green */
     color: #fff;
-    padding: 1.5em;
+    padding: 1em;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -43,118 +54,15 @@ nav button:hover {
     transform: scale(1.05); /* Subtle scaling effect */
 }
 
-/* Main Content Styling */
+/* Main Content */
 main {
     padding: 2em 1em;
-}
-
-.intro {
-    text-align: center;
-    margin-bottom: 2em;
-    padding-bottom: 30px;
-}
-
-.intro h2 {
-    font-size: 2em;
-    color: #2e7d32;
-}
-
-.intro p {
-    font-size: 1.2em;
-    color: #555;
-}
-
-.intro-image {
-    max-width: 80%;
-    height: auto;
-    margin-top: 1em;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Features Section */
-.features {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 3em;
-    padding-top: 60px;
-}
-
-.whymealfit {
-    font-size: 1.8em;
-    text-align: center;
-    width: 30%;
-    margin: 0 auto; /* Centers the element horizontally */
-    margin-bottom: 1.5em;
-    color: #2e7d32;
-}
-
-.feature-item {
-    width: 30%;
-    text-align: center;
-}
-
-.feature-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 1em;
-}
-
-.feature-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1em;
-}
-
-.feature-item p {
-    font-size: 1.1em;
-    color: #555;
-}
-
-.homepagedescription {
-    width: 50%;
-    font-size: 1.1em;
-    color: #555;
-    border: 0px solid #006400; /* Thick, dark green border */
-    border-radius: 15px; /* Rounds the corners */
-    background-color: #d4e6d5; /* Softer green background */
-    margin: 0 auto; /* Centers the block element horizontally */
-    text-align: center; /* Centers text inside the container */
-    padding: 20px; /* Adds padding inside the container */
-}
-
-.homepagedescription p {
-    width: 30%; /* Set the width of the paragraph */
-    margin: 0 auto; /* Centers the paragraph inside the container */
-}
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .features {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .feature-item {
-        width: 70%;
-        margin-bottom: 2em;
-    }
-
-    .intro-image {
-        width: 100%;
-    }
 }
 
 /* Form Elements */
 form input, form select, form button {
     display: block;
-    margin: 10px 0;
+    margin: 10px auto;
     padding: 0.5em;
     font-size: 1em;
     border: 1px solid #ccc;
@@ -206,12 +114,12 @@ form input, form select, form button {
 
 /* Meal List Items */
 #mealPlanList li {
+    list-style-type: none ;
     margin: 10px;
     padding: 15px;
     background-color: #e8f5e9; /* Very light green */
     border: 1px solid #c8e6c9;
     border-radius: 8px;
-     list-style-type: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
 }
@@ -328,40 +236,34 @@ form input, form select, form button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a subtle elevation effect */
 }
 
-/* Table header styling */
-#mealsTable thead {
-    background-color: #4CAF50; /* Green theme for header */
-    color: white;
-}
-
 #mealsTable th, #mealsTable td {
     padding: 12px 20px; /* Padding inside cells */
     text-align: left; /* Align text to the left */
     border: 1px solid #ddd; /* Light border around cells */
 }
 
-/* Table rows styling */
 #mealsTable tr:nth-child(even) {
     background-color: #f9f9f9; /* Light gray for alternating rows */
-}
-
-#mealsTable tr:nth-child(odd) {
-    background-color: #fff; /* White for odd rows */
 }
 
 #mealsTable tr:hover {
     background-color: #f1f1f1; /* Light hover effect */
 }
 
-/* Header row bold */
-#mealsTable th {
-    color: #90EE90; /* Light Green */
-       font-weight: bold; /* Keep bold text */
-       font-family: Arial, sans-serif; /* Ensure consistent font */
-       text-align: left; /* Align header text to the left */
+/* Close Button */
+#closeMealDetails {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #d32f2f; /* Red */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
-/* Table container to handle horizontal padding */
-#mealsTableContainer {
-    padding: 0 20px; /* Add padding to left and right */
+#closeMealDetails:hover {
+    background-color: #b71c1c; /* Darker red */
 }
