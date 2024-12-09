@@ -241,76 +241,99 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Users Page
-    function renderUsers() {
-        mainContent.innerHTML = `
-        <div id= "FormContainer">
-          <h2>User Registration</h2>
-          <form id="userForm">
-            <input type="text" name="user_name" placeholder="Name" required>
-            <input type="email" name="user_email" placeholder="Email" required>
-            <input type="password" name="user_pass" placeholder="Password" required>
-            <input type="number" name="user_age" placeholder="Age" required>
-            <select name="user_gender" required>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-            <input type="text" name="user_dietrestrictions" placeholder="Dietary Restrictions">
-            <input type="text" name="allergies" placeholder="Allergies">
-            <button type="submit">Register</button>
-          </form>
+  function renderUsers() {
+      mainContent.innerHTML = `
+          <div id="FormContainer">
+            <h2>User Registration</h2>
+            <form id="userForm">
+              <input type="text" name="user_name" placeholder="Name" required>
+              <input type="email" name="user_email" placeholder="Email" required>
+              <input type="password" name="user_pass" placeholder="Password" required>
+              <input type="number" name="user_age" placeholder="Age" required>
+              <select name="user_gender" required>
+                <option value=""></option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+
+             <div id="dietRestrictionsContainer">
+                 <p>Select Dietary Restrictions:</p>
+                 <label><input type="checkbox" name="user_dietrestrictions" value="Gluten-Free"> Gluten-Free</label>
+                 <label><input type="checkbox" name="user_dietrestrictions" value="Dairy-Free"> Dairy-Free</label>
+                 <label><input type="checkbox" name="user_dietrestrictions" value="Vegan"> Vegan</label>
+                 <label><input type="checkbox" name="user_dietrestrictions" value="Vegetarian"> Vegetarian</label>
+                 <label><input type="checkbox" name="user_dietrestrictions" value="Pescatarian"> Pescatarian</label>
+                 <label><input type="checkbox" name="user_dietrestrictions" value="Halal"> Halal</label>
+             </div>
+
+
+              <input type="text" name="allergies" placeholder="Allergies">
+              <button type="submit">Register</button>
+            </form>
           </div>
-        `;
+      `;
 
-        document.getElementById('userForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const userData = Object.fromEntries(formData.entries());
-            try {
-                // Send registration request
-                const response = await fetch('http://35.208.93.54:8080/api/users/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(userData),
-                });
+      document.getElementById('userForm').addEventListener('submit', async (e) => {
+          e.preventDefault();
 
-                const result = await response.json();
+          const formData = new FormData(e.target);
 
-                if (response.ok) {
-                    alert(result.message);
+          // Collect all checked dietary restrictions
+          const selectedRestrictions = Array.from(
+              document.querySelectorAll('input[name="user_dietrestrictions"]:checked')
+          ).map((checkbox) => checkbox.value);
 
-                    // Automatically log the user in
-                    const loginData = {
-                        identifier: userData.user_email, // Assuming email is used for login
-                        user_pass: userData.user_pass,
-                    };
+          // Add selected restrictions as a comma-separated string
+          formData.set('user_dietrestrictions', selectedRestrictions.join(', '));
 
-                    const loginResponse = await fetch('http://35.208.93.54:8080/api/users/login', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(loginData),
-                    });
+          const userData = Object.fromEntries(formData.entries());
+          try {
+              // Send registration request
+              const response = await fetch('http://35.208.93.54:8080/api/users/register', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(userData),
+              });
 
-                    const loginResult = await loginResponse.json();
+              const result = await response.json();
 
-                    if (loginResponse.ok) {
-                        // Save user data in localStorage and render profile
-                        localStorage.setItem('loggedInUser', JSON.stringify(loginResult.user));
-                        alert('Registration successful! You are now logged in.');
-                        updateNavButtons(); // Update navigation buttons
-                        renderProfile(loginResult.user); // Render the profile view
-                    } else {
-                        alert('Registration successful, but failed to log in. Please log in manually.');
-                        renderLogin();
-                    }
-                } else {
-                    alert(result.message);
-                }
-            } catch (error) {
-                alert('Failed to register user.');
-                console.error('Registration error:', error);
-            }
-        });
-    }
+              if (response.ok) {
+                  alert(result.message);
+
+                  // Automatically log the user in
+                  const loginData = {
+                      identifier: userData.user_email, // Assuming email is used for login
+                      user_pass: userData.user_pass,
+                  };
+
+                  const loginResponse = await fetch('http://35.208.93.54:8080/api/users/login', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(loginData),
+                  });
+
+                  const loginResult = await loginResponse.json();
+
+                  if (loginResponse.ok) {
+                      // Save user data in localStorage and render profile
+                      localStorage.setItem('loggedInUser', JSON.stringify(loginResult.user));
+                      alert('Registration successful! You are now logged in.');
+                      updateNavButtons(); // Update navigation buttons
+                      renderProfile(loginResult.user); // Render the profile view
+                  } else {
+                      alert('Registration successful, but failed to log in. Please log in manually.');
+                      renderLogin();
+                  }
+              } else {
+                  alert(result.message);
+              }
+          } catch (error) {
+              alert('Failed to register user.');
+              console.error('Registration error:', error);
+          }
+      });
+  }
+
 
 
     // Function to update navigation buttons based on login state
