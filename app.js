@@ -32,6 +32,11 @@ const startServer = async _ => {
   const mealroutes = require('./src/mealroutes');
   mealroutes.register(app, db);
 
+// Fallback to index.html for unknown routes (for Single Page Apps)
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
+
   const PORT = process.env.PORT || 8080;
   const server = app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
@@ -41,6 +46,7 @@ const startServer = async _ => {
     console.error(err);
     throw err;
   });
+
 
   return server;
 }
