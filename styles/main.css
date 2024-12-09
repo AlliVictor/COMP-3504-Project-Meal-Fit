@@ -94,7 +94,33 @@ main {
 .feature-item {
     width: 30%;
     text-align: center;
+
 }
+
+.diet-item {
+    width: 25%;
+    font-size: 1.1em;
+    color: #555;
+    border: 0px solid #006400; /* Thick, dark green border */
+    border-radius: 15px; /* Rounds the corners */
+    background-color: #d4e6d5; /* Softer green background */
+    text-align: center; /* Centers text inside the container */
+    margin-left: 20px;
+    margin-right: 20px;
+
+    margin-top: 50px;
+}
+
+
+.diet-item #diet-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.diet-item h3 {
+    text-align: center;
+}
+
 
 .feature-container {
     display: flex;
@@ -126,6 +152,7 @@ main {
     margin: 0 auto; /* Centers the block element horizontally */
     text-align: center; /* Centers text inside the container */
     padding: 20px; /* Adds padding inside the container */
+
 }
 
 .homepagedescription p {
@@ -485,58 +512,161 @@ form input, form select, form button {
 
 /* User Profile Section */
 #userProfile {
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 600px;
-  background-color: #f9f9f9; /* Light gray background for profile */
-  border: 1px solid #ddd; /* Subtle border for structure */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #f9f9f9; /* Light gray background for profile */
+    border: 1px solid #ddd; /* Subtle border for structure */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
 #userProfile h2 {
-  font-size: 2em;
-  color: #2d7a3e; /* Green color for the heading */
-  margin-bottom: 15px;
-  text-align: center;
-  text-transform: uppercase;
+    font-size: 2em;
+    color: #2d7a3e; /* Green color for the heading */
+    margin-bottom: 15px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 #userProfile ul {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
 }
 
 #userProfile ul li {
-  padding: 10px 15px;
-  border-bottom: 1px solid #ddd; /* Divider between items */
-  font-size: 1.1em;
-  color: #555; /* Neutral text color */
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd; /* Divider between items */
+    font-size: 1.1em;
+    color: #555; /* Neutral text color */
 }
 
 #userProfile ul li:last-child {
-  border-bottom: none; /* Remove border for the last item */
+    border-bottom: none; /* Remove border for the last item */
 }
 
 #userProfile ul li strong {
-  color: #3c9f4e; /* Green accent for labels */
+    color: #3c9f4e; /* Green accent for labels */
 }
 
 #userProfile button {
-  display: block;
-  margin: 20px auto;
-  background-color: #e74c3c; /* Red for logout button */
-  color: white;
-  padding: 10px 20px;
-  font-size: 1em;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto;
+    background-color: #e74c3c; /* Red for logout button */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #userProfile button:hover {
-  background-color: #c0392b;
+    background-color: #c0392b;
+}
+
+/* Center the login and register pages */
+#FormContainer {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Form container styling */
+#loginForm {
+    background-color: #ffffff;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+/* Input and button styling */
+#loginForm input, #loginForm button {
+    width: 100%;
+    padding: 0.8em;
+    margin: 0.5em 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+#loginForm button {
+    background-color: #66bb6a; /* Medium green */
+    color: white;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#loginForm button:hover {
+    background-color: #338a3e; /* Darker green */
+    transform: scale(1.02); /* Slight zoom */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #FormContainer {
+        padding: 1em;
+    }
+    #loginForm {
+        padding: 1.5em;
+        max-width: 90%;
+    }
+}
+
+#userForm {
+    background-color: #ffffff;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+/* Input and button styling */
+#userForm input, #userForm button {
+    width: 100%;
+    padding: 0.8em;
+    margin: 0.5em 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+#userForm button {
+    background-color: #66bb6a; /* Medium green */
+    color: white;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#userForm button:hover {
+    background-color: #338a3e; /* Darker green */
+    transform: scale(1.02); /* Slight zoom */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #FormContainer {
+        padding: 1em;
+    }
+    #userForm {
+        padding: 1.5em;
+        max-width: 90%;
+    }
 }
