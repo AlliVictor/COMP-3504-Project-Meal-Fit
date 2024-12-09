@@ -7,13 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-//app.use((req, res, next) => {
-//  res.set('Content-Type', 'application/json');
-//  next();
-//});
+app.use((req, res, next) => {
+  res.set('Content-Type', 'application/json');
+  next();
+});
 
 const startServer = async _ => {
 
@@ -32,11 +29,6 @@ const startServer = async _ => {
   const mealroutes = require('./src/mealroutes');
   mealroutes.register(app, db);
 
-// Fallback to index.html for unknown routes (for Single Page Apps)
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  });
-
   const PORT = process.env.PORT || 8080;
   const server = app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
@@ -46,7 +38,6 @@ const startServer = async _ => {
     console.error(err);
     throw err;
   });
-
 
   return server;
 }
