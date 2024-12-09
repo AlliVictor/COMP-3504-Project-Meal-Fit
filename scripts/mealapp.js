@@ -21,22 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
       <section class="intro">
                              <h2>Welcome to MealFIT</h2>
                              <p>Your personalized meal planning companion that helps you eat healthier and smarter.</p>
-                             <img src="meal-plan-image.jpg" alt="Healthy Meal Plan" class="intro-image">
+                             <img src="./images/kkmm.png" alt="Healthy Meal Plan" width="540" height="326"  class="intro-image">
                          </section>
 
+                        <h3 class="whymealfit">Why MealFIT?</h3>
+                         <p class="homepagedescription">
+                              Meal Fit is your ultimate solution for hassle-free meal planning. Designed to cater to your unique dietary needs,
+                              Meal Fit generates personalized weekly meal plans tailored specifically for you. Whether you have specific dietary
+                              restrictions or simply want to maintain a balanced diet, our app ensures every meal is perfectly suited to your lifestyle.
+                              With Meal Fit, you'll receive detailed ingredient lists for each meal, making grocery shopping a breeze. Say goodbye to
+                               meal-planning stress and hello to a healthier, more organized you. Start your journey to effortless meal planning with Meal Fit today!
+                         </p>
+
                          <section class="features">
-                             <h3>Why MealFIT?</h3>
+                             <div class="feature-container">
                              <div class="feature-item">
-                                 <img src="personalized-meals.jpg" alt="Personalized Meals" class="feature-image">
-                                 <p>Personalized meal plans based on your dietary needs, preferences, and goals.</p>
+                                <img src="./images/personalized-meals.jpg" alt="Personalized Meals" class="feature-image">
+                                <p>Personalized meal plans based on your dietary needs.</p>
                              </div>
+
                              <div class="feature-item">
-                                 <img src="shopping-list.jpg" alt="Shopping List" class="feature-image">
-                                 <p>Generated shopping lists to make grocery shopping easy and organized.</p>
-                             </div>
-                             <div class="feature-item">
-                                 <img src="healthy-recipes.jpg" alt="Healthy Recipes" class="feature-image">
+                                 <img src="./images/healthy-recipes.jpg" alt="Healthy Recipes" class="feature-image">
                                  <p>Healthy, easy-to-follow recipes with all the nutrition information you need.</p>
+                             </div>
                              </div>
                          </section>
     `;
@@ -63,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Function to fetch and display a meal plan
         async function fetchAndDisplayMealPlan(restrictions) {
-            const mealPlanList = document.getElementById('mealPlanList');
-            mealPlanList.innerHTML = '<li>Loading...</li>'; // Show a loading message
+            const mealPlanListContainer = document.getElementById('mealPlanListContainer');
+            mealPlanListContainer.innerHTML = '<div>Loading...</div>'; // Show a loading message
 
             try {
                 // Fetch meal plan from the server
@@ -75,12 +82,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const mealPlan = await response.json();
-                mealPlanList.innerHTML = ''; // Clear previous results
+                mealPlanListContainer.innerHTML = ''; // Clear previous results
 
                 if (mealPlan.length > 0) {
-                    mealPlan.forEach((day) => {
-                        const dayItem = document.createElement('li');
-                        dayItem.innerHTML = `<strong>${day.day}</strong>`;
+                    let row;
+                    mealPlan.forEach((day, index) => {
+                        // Start a new row for every 3 days
+                        if (index % 3 === 0) {
+                            row = document.createElement('div');
+                            row.className = 'meal-plan-row';
+                            mealPlanListContainer.appendChild(row);
+                        }
+
+                        const dayCard = document.createElement('div');
+                        dayCard.className = 'day-card'; // Add a class for styling
+
+
+                        dayCard.innerHTML = `<h4>${day.day}</h4>`;
                         const mealList = document.createElement('ul');
 
                         day.meals.forEach((meal) => {
@@ -91,16 +109,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             mealItem.addEventListener('click', () => showMealDetails(meal));
                             mealList.appendChild(mealItem);
                         });
+                        document.getElementById('mealPlanListContainer').appendChild(dayCard);
 
-                        dayItem.appendChild(mealList);
-                        mealPlanList.appendChild(dayItem);
+                        dayCard.appendChild(mealList);
+                        row.appendChild(dayCard);
                     });
                 } else {
-                    mealPlanList.innerHTML = '<li>No meals found for the given restrictions.</li>';
+                    mealPlanListContainer.innerHTML = '<div>No meals found for the given restrictions.</div>';
                 }
             } catch (error) {
                 console.error('Failed to fetch meal plan:', error);
-                mealPlanList.innerHTML = '<li>Failed to load meal plan. Please try again later.</li>';
+                mealPlanListContainer.innerHTML = '<div>Failed to load meal plan. Please try again later.</div>';
             }
         }
 
@@ -114,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newRestrictions = document.getElementById('dietRestrictions').value.trim();
             fetchAndDisplayMealPlan(newRestrictions);
         });
-    }
+}
 
 
     // Global variable to keep track of the current meal details container
@@ -381,25 +400,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function renderProfile(user) {
-        mainContent.innerHTML = `
-        <h2>User Profile</h2>
-        <ul>
-          <li><strong>Name:</strong> ${user.user_name}</li>
-          <li><strong>Email:</strong> ${user.user_email}</li>
-          <li><strong>Age:</strong> ${user.user_age}</li>
-          <li><strong>Gender:</strong> ${user.user_gender}</li>
-          <li><strong>Dietary Restrictions:</strong> ${user.user_dietrestrictions}</li>
-          <li><strong>Allergies:</strong> ${user.allergies}</li>
-        </ul>
-      `;
+   function renderProfile(user) {
+     mainContent.innerHTML = `
+       <div id="userProfile">
+         <h2>User Profile</h2>
+         <ul>
+           <li><strong>Name:</strong> ${user.user_name}</li>
+           <li><strong>Email:</strong> ${user.user_email}</li>
+           <li><strong>Age:</strong> ${user.user_age}</li>
+           <li><strong>Gender:</strong> ${user.user_gender}</li>
+           <li><strong>Dietary Restrictions:</strong> ${user.user_dietrestrictions}</li>
+           <li><strong>Allergies:</strong> ${user.allergies}</li>
+         </ul>
+         <button id="logoutBtn">Logout</button>
+       </div>
+     `;
 
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            localStorage.removeItem('loggedInUser'); // Clear user session
-            updateNavButtons(); // Update navigation buttons
-            renderLogin(); // Redirect to login screen
-        });
-    }
+     document.getElementById('logoutBtn').addEventListener('click', () => {
+       localStorage.removeItem('loggedInUser'); // Clear user session
+       updateNavButtons(); // Update navigation buttons
+       renderLogin(); // Redirect to login screen
+     });
+   }
+
 
     // Initial setup
     document.addEventListener('DOMContentLoaded', () => {
@@ -488,10 +511,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     const noDataRow = document.createElement('tr');
                     const noDataCell = document.createElement('td');
-                    noDataCell.colSpan = 1;
+                    noDataCell.colSpan = headers.length; // Span across all headers
                     noDataCell.textContent = 'No records found';
+                    noDataCell.style.textAlign = 'center'; // Center align the text
                     noDataRow.appendChild(noDataCell);
                     body.appendChild(noDataRow);
+
                 }
             } catch (error) {
                 alert('Failed to fetch meals data');
