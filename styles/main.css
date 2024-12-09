@@ -631,7 +631,7 @@ form input, form select, form button {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     box-sizing: border-box;
 }
 
@@ -670,3 +670,42 @@ form input, form select, form button {
         max-width: 90%;
     }
 }
+
+#dietRestrictionsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create 3 equal columns */
+    gap: 10px; /* Space between grid items */
+    padding: 10px; /* Add padding around the container */
+    background-color: #f9f9f9; /* Light background color */
+    border: 1px solid #ccc; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    max-width: 500px; /* Limit the width of the container */
+    margin: 20px auto; /* Center the container */
+}
+
+#dietRestrictionsContainer p {
+    grid-column: span 3; /* Span the heading across all 3 columns */
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#dietRestrictionsContainer label {
+    display: flex; /* Use flex to align checkbox and label text */
+    align-items: center;
+    padding: 5px 10px;
+    background-color: #ffffff; /* White background for each label */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+#dietRestrictionsContainer label:hover {
+    background-color: #e8f5e9; /* Light green on hover */
+    transform: scale(1.02); /* Slight zoom on hover */
+}
+
+#dietRestrictionsContainer input[type="checkbox"] {
+    margin-right: 10px; /* Space between checkbox and label text */
+}
+
