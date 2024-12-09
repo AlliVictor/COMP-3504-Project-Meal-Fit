@@ -10,10 +10,10 @@ app.use(express.json());
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) => {
-  res.set('Content-Type', 'application/json');
-  next();
-});
+//app.use((req, res, next) => {
+//  res.set('Content-Type', 'application/json');
+//  next();
+//});
 
 const startServer = async _ => {
 
