@@ -10,7 +10,7 @@ MealFit is designed to cater dietary needs for users creating a hassle-free meal
 ------------------------------------------------------------------------------------------------
 ## Endpoint Documentation
 
-[Documentation  - Back & Front-end.pdf](https://github.com/user-attachments/files/18070348/Documentation.-.Back.Front-end.pdf)
+Documentation  - Back & Front-end.pdf](https://github.com/user-attachments/files/18070348/Documentation.-.Back.Front-end.pdf
 ------------------------------------------------------------------------------------------------
 
 #### Feature List
