@@ -1,6 +1,6 @@
-
+{
   "name": "Project-Meal-Planner-Fit",
-  "description": "This project demonstrates a meal planner being used to track user intakes, such as their calor>
+  "description": "This project demonstrates a meal planner being used to track user intakes, such as their calories, and nutrients",
   "version": "0.0.2",
   "private": true,
   "license": "Apache-2.0",
@@ -13,9 +13,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "start": "node app.js",
-    "test": "mocha --exit test/*.test.js",
-    "build": "react-scripts build"
+    "start": "node app.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -30,3 +28,6 @@
     "mocha": "^8.1.3",
     "supertest": "^6.0.0"
   }
+
+
+}
