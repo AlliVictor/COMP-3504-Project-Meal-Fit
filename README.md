@@ -8,6 +8,10 @@ Welcome to MealFit!
 MealFit is designed to cater dietary needs for users creating a hassle-free meal planning. MealFit allows personalized weekly meal plans specifically for your dietary restrictions, or maintain a balanced diet. Every meal ensures that it suites to your lifestyle. MealFit generates a detailed lists for each meal, making grocery-shopping a breeze. Start your journey with MealFit to effortless plan your meals.
 
 ------------------------------------------------------------------------------------------------
+## Endpoint Documentation
+
+[Documentation  - Back & Front-end.pdf](https://github.com/user-attachments/files/18070348/Documentation.-.Back.Front-end.pdf)
+------------------------------------------------------------------------------------------------
 
 #### Feature List
 - Home: Home Page
@@ -28,6 +32,3 @@ User can have multiple dietary restrictions when registering, dietary restrictio
 
 Users can click on meals to view the details about the meal.
 
-
-
-[Documentation  - Back & Front-end.pdf](https://github.com/user-attachments/files/18070348/Documentation.-.Back.Front-end.pdf)
